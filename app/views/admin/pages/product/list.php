@@ -1,7 +1,6 @@
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="row">
-
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
@@ -44,16 +43,13 @@
                                     <?php endif; ?>
                                 </tbody>
                             </table>
-                            
                         </div>
-                        
+                        <!--Pagination -->
+                        <?php require './app/views/admin/partials/_pagination.php' ?>
+                        <!--//Pagination -->
                     </div>
                 </div>
-                
             </div>
-            
-
-
         </div>
     </div>
 </div>

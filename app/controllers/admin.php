@@ -5,8 +5,7 @@ class Admin extends Controller
     {
         $data['page_title'] = "Admin";
         $this->view("admin/partials/_header",$data);
-        // $this->view("admin/index",$data);
-        $this->view("admin/partials/_pagination",$data);
+        $this->view("admin/index",$data);
         $this->view("admin/partials/_footer",$data);
         // $this->view("admin/pages/login",$data);
     }
@@ -45,15 +44,20 @@ class Admin extends Controller
   function product()
   {
     $product = $this->load_model('product');
-    $data['product'] = $product->get_All(5,0);
+
     //pagination
-    $limit = 6;
+    $limit = 5;
     $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
     $page_number = ($page_number < 1) ? 1 : $page_number;
     $offset = ($page_number - 1) * $limit; //start
-    $total_records = $product->count_Records();
+    $total_records = $product->count_Records();//viết thêm câu truy vấn đếm số bản ghi ở models
     $data['total_page'] = ceil($total_records/$limit);
     $data['current_page'] = $page_number;
+    $data['index'] = "product"; //thay đổi tên function
+
+    //get product
+    $data['product'] = $product->get_All($limit,$offset); //thêm $limit,$offset ở models
+
     //load view
     $data['page_title'] = "quản lý sản phẩm";
     $this->view("admin/partials/_header", $data);

@@ -1,29 +1,20 @@
 <div class="container">
     <div class="pagination p1">
         <ul>
+            <!--Prev-->
+            <?php if ($data['current_page'] != 1) : ?>
             <a href="#">
                 <li>
                     <
                 </li>
             </a>
-            <a class="is-active" href="#">
-                <li>1</li>
+            <?php endif; ?>
+            <!--Prev-->
+            <?php for ($i = 1; $i <= $data['total_page']; $i++) { ?>
+            <a class="is-active" href="<?= ROOT ."admin/".$data['index']."/list?page=".$i?>">
+                <li <?= ($data['current_page'] == $i) ? 'class="active"' : '' ?> ><?= $i ?></li>
             </a>
-            <a href="#">
-                <li>2</li>
-            </a>
-            <a href="#">
-                <li>3</li>
-            </a>
-            <a href="#">
-                <li>4</li>
-            </a>
-            <a href="#">
-                <li>5</li>
-            </a>
-            <a href="#">
-                <li>6</li>
-            </a>
+            <?php } ?>
             <a href="#">
                 <li>></li>
             </a>
@@ -166,7 +157,7 @@
     }
 
     .p1 a.is-active {
-        background-color: #2ecc71;
+        background-color: #000000;
         border-radius: 100%;
         color: #fff;
     }
@@ -175,13 +166,13 @@
 
     .p2 .is-active li {
         font-weight: bold;
-        border-bottom: 3px solid #2ecc71;
+        border-bottom: 3px solid #000000;
     }
 
     /* THREE */
 
     .p3 .is-active {
-        background-color: #2ecc71;
+        background-color: #000000;
         color: #fff;
     }
 
@@ -195,7 +186,7 @@
         padding: 0;
         text-align: center;
         position: relative;
-        border: 3px solid #2ecc71;
+        border: 3px solid #000000;
     }
 
     .p4 .is-active:before {
@@ -203,7 +194,7 @@
         width: 30px;
         height: 30px;
         border-radius: 100%;
-        background-color: #2ecc71;
+        background-color: #000000;
         position: absolute;
         top: 5px;
         left: 5px;
@@ -220,7 +211,7 @@
     }
 
     .p5 .is-active {
-        background-color: #2ecc71;
+        background-color: #000000;
     }
 
     /* SIX */
@@ -237,36 +228,36 @@
     }
 
     .p6 .is-active {
-        background-color: #2ecc71;
+        background-color: #000000;
     }
 
     /* SEVEN */
 
     .p7 a {
-        border: 3px solid #2ecc71;
+        border: 3px solid #000000;
         margin: auto 5px;
-        color: #2ecc71;
+        color: #000000;
         font-weight: bold;
     }
 
     .p7 .is-active {
-        background-color: #2ecc71;
+        background-color: #000000;
         color: #fff;
     }
 
     /* EIGHT */
 
     .p8 a {
-        background-color: #2ecc71;
+        background-color: #000000;
         margin: auto 5px;
         color: #fff;
         font-weight: bold;
-        border: 3px solid #2ecc71;
+        border: 3px solid #000000;
     }
 
     .p8 .is-active {
         background-color: #fff;
-        color: #2ecc71;
+        color: #000000;
     }
 
     /* NINE */
@@ -281,7 +272,7 @@
     }
 
     .p9 a.is-active {
-        border: 3px solid #2ecc71;
+        border: 3px solid #000000;
         border-radius: 100%;
     }
 
@@ -297,16 +288,16 @@
     }
 
     .p10 a.is-active {
-        border: 3px solid #2ecc71;
+        border: 3px solid #000000;
     }
 
     /* ELEVEN */
 
     .p11 a {
-        background-color: #2ecc71;
+        background-color: #000000;
         margin: auto 5px;
         color: #fff;
-        border: 3px solid #2ecc71;
+        border: 3px solid #000000;
         position: relative;
     }
 
@@ -317,7 +308,7 @@
         left: -25px;
         border-top: 22px solid transparent;
         border-bottom: 22px solid transparent;
-        border-right: 22px solid #2ecc71;
+        border-right: 22px solid #000000;
     }
 
     .p11 a:last-of-type:after {
@@ -327,7 +318,7 @@
         right: -25px;
         border-top: 22px solid transparent;
         border-bottom: 22px solid transparent;
-        border-left: 22px solid #2ecc71;
+        border-left: 22px solid #000000;
     }
 
     .p11 .is-active {
@@ -339,7 +330,7 @@
     .p12 a:first-of-type,
     .p12 a:last-of-type,
     .p12 .is-active {
-        background-color: #2ecc71;
+        background-color: #000000;
         color: #fff;
         font-weight: bold;
     }
