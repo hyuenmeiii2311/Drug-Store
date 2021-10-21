@@ -7,12 +7,14 @@ class Admin extends Controller
   
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
       // show($_POST);
+      show($_SESSION['admin']);
 
       $user = $this->load_model("user");
       $user->login_Admin($_POST);
     }
     $this->view("admin/pages/login", $data);
   }
+
   function home()
   {
     $data['page_title'] = "Admin";
@@ -20,8 +22,8 @@ class Admin extends Controller
     $this->view("admin/partials/_header",$data);
     $this->view("admin/index",$data);
     $this->view("admin/partials/_footer",$data);
-    
   }
+
   function user()
   {
     $user = $this->load_model('user');

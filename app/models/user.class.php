@@ -154,4 +154,14 @@ class User
         }
         $_SESSION['error'] = $this->error;
     }
+    public function logout_Admin()
+    {
+        if (isset($_SESSION['admin']) && $_SESSION['admin'] != "") {
+
+            unset($_SESSION['admin']);
+            //redirect home page
+            header("Location:" . ROOT . "admin");
+            die;
+        }
+    }
 }
