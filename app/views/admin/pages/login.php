@@ -31,24 +31,16 @@
               </div>
               <h4>Hello! let's get started</h4>
               <h6 class="font-weight-light">Sign in to continue.</h6>
-              <form class="pt-3">
+              <form class="pt-3" method="POST" name="Login" onsubmit="return validate()">
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
+                  <input type="tel" class="form-control form-control-lg" id="phone" name="phone" placeholder="Phone">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                  <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password">
+                  <p id="error_email"  class="text-danger"><?php echo checkError(); ?></p>
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="<?= ASSETS_ADMIN ?>index.html">SIGN IN</a>
-                </div>
-                <div class="my-2 d-flex justify-content-between align-items-center">
-                  <div class="form-check">
-                    <label class="form-check-label text-muted">
-                      <input type="checkbox" class="form-check-input">
-                      Keep me signed in
-                    </label>
-                  </div>
-                  <a href="#" class="auth-link text-black">Forgot password?</a>
+                <input type="submit" id="btnSubmit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" value="SIGN IN">
                 </div>
               </form>
             </div>
@@ -72,6 +64,13 @@
   <script src="<?= ASSETS_ADMIN ?>js/settings.js"></script>
   <script src="<?= ASSETS_ADMIN ?>js/todolist.js"></script>
   <!-- endinject -->
+
+  <!-- validate -->
+  <script>
+
+  </script>
+
+
 </body>
 
 </html>

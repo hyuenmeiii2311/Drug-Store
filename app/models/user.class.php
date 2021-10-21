@@ -123,4 +123,35 @@ class User
         $db = new Database();
         return $db->read("SELECT `id`, `name`, `phone`, `email`, `gender`, `address`, `datebirth`, `role` FROM `user` ");
     }
+
+    public function login_Admin($POST)
+    {
+        //Password hashing
+        $POST['password'] = hash('sha1', $POST['password']);
+
+        $data = array();
+
+        $data['password'] = trim($POST['password']);
+        $data['phone'] = trim($POST['phone']);
+
+        $db = new Database();
+
+        //save database
+        if ($this->error == "") {
+            // show($POST);
+
+            $query = "select * from user where phone = :phone and password = :password AND role = 'admin' limit 1";
+            $result = $db->read($query, $data);
+
+            if (is_array($result)) {
+                $_SESSION['admin'] = $result[0];
+
+                //redirect admin page
+                header("Location:" . ROOT . "admin/home");
+                die;
+            }
+            $this->error .= "Wrong phone or password.";
+        }
+        $_SESSION['error'] = $this->error;
+    }
 }

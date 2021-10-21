@@ -1,37 +1,51 @@
 <?php
 class Admin extends Controller
 {
-    function index()
-    {
-        $data['page_title'] = "Admin";
-        $this->view("admin/partials/_header",$data);
-        $this->view("admin/index",$data);
-        $this->view("admin/partials/_footer",$data);
-        // $this->view("admin/pages/login",$data);
+  function index()
+  {
+    $data['page_title'] = "Login";
+  
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+      // show($_POST);
+
+      $user = $this->load_model("user");
+      $user->login_Admin($_POST);
     }
-    function user(){
-        $user = $this->load_model('user');
-        $data['user'] = $user->get_All();
-        // show($data['user']);
-        //load view
-        $data['page_title'] = "quản lý khách hàng";
-        $this->view("admin/partials/_header",$data);
-        $this->view("admin/pages/user/list",$data);
-        $this->view("admin/partials/_footer",$data);
-    }
+    $this->view("admin/pages/login", $data);
+  }
+  function home()
+  {
+    $data['page_title'] = "Admin";
+  
+    $this->view("admin/partials/_header",$data);
+    $this->view("admin/index",$data);
+    $this->view("admin/partials/_footer",$data);
     
-    function category(){
-        $category = $this->load_model('category');
-        $data['category'] = $category->get_All();
+  }
+  function user()
+  {
+    $user = $this->load_model('user');
+    $data['user'] = $user->get_All();
+    // show($data['user']);
+    //load view
+    $data['page_title'] = "quản lý khách hàng";
+    $this->view("admin/partials/_header", $data);
+    $this->view("admin/pages/user/list", $data);
+    $this->view("admin/partials/_footer", $data);
+  }
 
-        //load view
-        $data['page_title'] = "quản lý thể loại";
-        $this->view("admin/partials/_header",$data);
-        $this->view("admin/pages/category/list",$data);
-        $this->view("admin/partials/_footer",$data);
+  function category()
+  {
+    $category = $this->load_model('category');
+    $data['category'] = $category->get_All();
 
-    }
-    function contact()
+    //load view
+    $data['page_title'] = "quản lý thể loại";
+    $this->view("admin/partials/_header", $data);
+    $this->view("admin/pages/category/list", $data);
+    $this->view("admin/partials/_footer", $data);
+  }
+  function contact()
   {
     $contact = $this->load_model('contact');
     $data['contact'] = $contact->get_All();
@@ -50,13 +64,13 @@ class Admin extends Controller
     $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
     $page_number = ($page_number < 1) ? 1 : $page_number;
     $offset = ($page_number - 1) * $limit; //start
-    $total_records = $product->count_Records();//viết thêm câu truy vấn đếm số bản ghi ở models
-    $data['total_page'] = ceil($total_records/$limit);
+    $total_records = $product->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
+    $data['total_page'] = ceil($total_records / $limit);
     $data['current_page'] = $page_number;
     $data['index'] = "product"; //thay đổi tên function
 
     //get product
-    $data['product'] = $product->get_All($limit,$offset); //thêm $limit,$offset ở models
+    $data['product'] = $product->get_All($limit, $offset); //thêm $limit,$offset ở models
 
     //load view
     $data['page_title'] = "quản lý sản phẩm";
@@ -95,5 +109,4 @@ class Admin extends Controller
     $this->view("admin/pages/order/list", $data);
     $this->view("admin/partials/_footer", $data);
   }
-
 }
