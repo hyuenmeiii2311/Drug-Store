@@ -164,4 +164,9 @@ class User
             die;
         }
     }
+    function count_Records(){
+        $db = new Database();
+        $result = $db->read("SELECT COUNT(*) AS total FROM product WHERE role = 'customer';");
+        return $result[0]->total;
+    }
 }

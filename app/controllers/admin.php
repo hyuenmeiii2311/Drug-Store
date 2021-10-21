@@ -1,20 +1,21 @@
 <?php
 class Admin extends Controller
 {
+  //login
   function index()
   {
     $data['page_title'] = "Login";
   
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
       // show($_POST);
-      show($_SESSION['admin']);
 
       $user = $this->load_model("user");
       $user->login_Admin($_POST);
     }
     $this->view("admin/pages/login", $data);
   }
-
+  
+  //home
   function home()
   {
     $data['page_title'] = "Admin";

@@ -11,4 +11,9 @@ class Category {
         return $db->read("SELECT * FROM category WHERE product_mix_id = '" .$id ."'");
 
     }
+    function count_Records(){
+        $db = new Database();
+        $result = $db->read("SELECT COUNT(*) AS total FROM category;");
+        return $result[0]->total;
+    }
 }

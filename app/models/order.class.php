@@ -43,5 +43,10 @@ class Order
             header("Location:".ROOT."thankyou");
             die;
         }
-    }      
+    }   
+    function count_Records(){
+        $db = new Database();
+        $result = $db->read("SELECT COUNT(*) AS total FROM order;");
+        return $result[0]->total;
+    }   
 }
