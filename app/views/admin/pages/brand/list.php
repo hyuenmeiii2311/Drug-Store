@@ -14,12 +14,8 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
-                                    <tr>
-                                        
-                                        <th>Name</th>
-                                      
-                                        
-                                      
+                                    <tr>     
+                                        <th>Tên thương hiệu</th>
                                     </tr>
                                 </thead>
                                 <tbody>

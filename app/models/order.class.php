@@ -37,12 +37,16 @@ class Order
                 $query2 = "INSERT INTO `order_detail`( `order_id`, `product_id`, `quantity`) 
                 VALUES ('".$order_id."','".$row->id."','".$row->cart_quantity."')";
                 $result2 = $db->write($query2);
+                //update quantity
+                $query3 = "UPDATE product SET quantity = quantity - $row->cart_quantity WHERE id = $row->id;";
+                $result3 = $db->write($query3);
             } 
             unset($_SESSION['cart']);
             unset($_SESSION['number']);
             header("Location:".ROOT."thankyou");
             die;
         }
+        
     }   
     function count_Records(){
         $db = new Database();
