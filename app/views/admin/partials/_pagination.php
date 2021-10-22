@@ -3,7 +3,7 @@
         <ul>
             <!--Prev-->
             <?php if ($data['current_page'] != 1) : ?>
-            <a href="#">
+            <a href="<?= ROOT ."admin/".$data['index']."/list?page=".($data['current_page'] - 1)?>">
                 <li>
                     <
                 </li>
@@ -15,9 +15,11 @@
                 <li <?= ($data['current_page'] == $i) ? 'class="active"' : '' ?> ><?= $i ?></li>
             </a>
             <?php } ?>
-            <a href="#">
+            <?php if ($data['total_page'] > $data['current_page']) : ?>
+            <a href="<?= ROOT ."admin/".$data['index']."/list?page=".($data['current_page'] + 1)?>">
                 <li>></li>
             </a>
+            <?php endif; ?>
         </ul>
     </div>
 </div>

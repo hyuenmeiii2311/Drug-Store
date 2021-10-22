@@ -24,11 +24,11 @@
                         <div class="mb-5">
                             <div class="input-group mb-3" style="max-width: 220px;">
                                 <div class="input-group-prepend">
-                                    <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                                    <!-- <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button> -->
                                 </div>
-                                <input type="text" class="form-control text-center" name="quantity" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                <input type="number" class="form-control text-center" min="1" max="<?= $data['product']->quantity ?>" name="quantity" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                                    <!-- <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button> -->
                                 </div>
                             </div>
 
@@ -132,3 +132,6 @@
 
     }
 </style>
+<script>
+    
+</script>

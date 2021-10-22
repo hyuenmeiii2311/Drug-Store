@@ -39,6 +39,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        <!--Pagination -->
+                        <?php require './app/views/admin/partials/_pagination.php' ?>
+                        <!--//Pagination -->
                     </div>
                 </div>
             </div>

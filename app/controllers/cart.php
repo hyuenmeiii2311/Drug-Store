@@ -12,9 +12,6 @@ class Cart extends Controller
             $rows = $db->read("select * from product where id in ($ids_str)");
         }
         
-        // show($prod_ids);
-        // show($_SESSION['cart']);
-
         if(is_array($rows)){
             foreach($rows as $key => $row){
                 foreach($_SESSION['cart'] as $item){
@@ -42,7 +39,9 @@ class Cart extends Controller
             }
 
         }
-        
+        //get all Product Mix 
+        $list= $this->load_model('ProductMix');
+        $data['product_mix']= $list->get_All();
         //load view
         $data['page_title'] = "Cart";
         $this->view("client/header", $data);
@@ -55,7 +54,7 @@ class Cart extends Controller
 
     function add_to_cart($id = '',$quantity = 1)
     {
-        $this->set_redirect();
+        // $this->set_redirect();
         $id = (int)$id;
    
 
@@ -98,12 +97,8 @@ class Cart extends Controller
             }
         }
 
-        //show($_SESSION['cart']);
-        //unset($_SESSION['cart']);
-
-        //header("Location:".ROOT."shop");
-        $this->redirect();
-      
+        header("Location:".ROOT."cart");
+        // $this->redirect();
        
     }
     function add_quantity($id = ''){
@@ -205,9 +200,9 @@ class Cart extends Controller
             $this->redirect_to = $_SERVER['HTTP_REFERER'];
         }
         else{
-            $this->redirect_to = ROOT . "shop";
+            $this->redirect_to = ROOT . "cart";
         }
-        show($_SERVER);
+        // show($_SERVER);
 
     }
     

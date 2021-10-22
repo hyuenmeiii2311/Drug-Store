@@ -28,8 +28,18 @@ class Admin extends Controller
   function user()
   {
     $user = $this->load_model('user');
-    $data['user'] = $user->get_All();
-    // show($data['user']);
+    //pagination
+    $limit = 5;
+    $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
+    $page_number = ($page_number < 1) ? 1 : $page_number;
+    $offset = ($page_number - 1) * $limit; //start
+    $total_records = $user->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
+    $data['total_page'] = ceil($total_records / $limit);
+    $data['current_page'] = $page_number;
+    $data['index'] = "user"; 
+
+
+    $data['user'] = $user->get_All($limit,$offset);
     //load view
     $data['page_title'] = "quản lý khách hàng";
     $this->view("admin/partials/_header", $data);
@@ -40,7 +50,18 @@ class Admin extends Controller
   function category()
   {
     $category = $this->load_model('category');
-    $data['category'] = $category->get_All();
+
+    //pagination
+    $limit = 5;
+    $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
+    $page_number = ($page_number < 1) ? 1 : $page_number;
+    $offset = ($page_number - 1) * $limit; //start
+    $total_records = $category->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
+    $data['total_page'] = ceil($total_records / $limit);
+    $data['current_page'] = $page_number;
+    $data['index'] = "category"; 
+
+    $data['category'] = $category->get_All($limit,$offset);
 
     //load view
     $data['page_title'] = "quản lý thể loại";
@@ -51,7 +72,17 @@ class Admin extends Controller
   function contact()
   {
     $contact = $this->load_model('contact');
-    $data['contact'] = $contact->get_All();
+    //pagination
+    $limit = 5;
+    $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
+    $page_number = ($page_number < 1) ? 1 : $page_number;
+    $offset = ($page_number - 1) * $limit; //start
+    $total_records = $contact->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
+    $data['total_page'] = ceil($total_records / $limit);
+    $data['current_page'] = $page_number;
+    $data['index'] = "contact"; 
+
+    $data['contact'] = $contact->get_All($limit,$offset);
     //load view
     $data['page_title'] = "quản lý liên hệ";
     $this->view("admin/partials/_header", $data);
@@ -84,7 +115,17 @@ class Admin extends Controller
   function mix()
   {
     $product_mix = $this->load_model('productmix');
-    $data['product_mix'] = $product_mix->get_All();
+    //pagination
+    $limit = 5;
+    $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
+    $page_number = ($page_number < 1) ? 1 : $page_number;
+    $offset = ($page_number - 1) * $limit; //start
+    $total_records = $product_mix->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
+    $data['total_page'] = ceil($total_records / $limit);
+    $data['current_page'] = $page_number;
+    $data['index'] = "mix"; 
+
+    $data['product_mix'] = $product_mix->get_All($limit,$offset);
     //load view
     $data['page_title'] = "quản lý danh mục";
     $this->view("admin/partials/_header", $data);
@@ -94,7 +135,18 @@ class Admin extends Controller
   function brand()
   {
     $brand = $this->load_model('brand');
-    $data['brand'] = $brand->get_All();
+
+    //pagination
+    $limit = 4;
+    $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
+    $page_number = ($page_number < 1) ? 1 : $page_number;
+    $offset = ($page_number - 1) * $limit; //start
+    $total_records = $brand->count_Records(); 
+    $data['total_page'] = ceil($total_records / $limit);
+    $data['current_page'] = $page_number;
+    $data['index'] = "brand"; 
+
+    $data['brand'] = $brand->get_All($limit,$offset);
     //load view
     $data['page_title'] = "quản lý thương hiệu";
     $this->view("admin/partials/_header", $data);
@@ -104,8 +156,18 @@ class Admin extends Controller
   function order()
   {
     $order = $this->load_model('order');
-    $data['order'] = $order->get_All();
-    // show($data['order']);
+    //pagination
+    $limit = 5;
+    $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
+    $page_number = ($page_number < 1) ? 1 : $page_number;
+    $offset = ($page_number - 1) * $limit; //start
+    $total_records = $order->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
+    $data['total_page'] = ceil($total_records / $limit);
+    $data['current_page'] = $page_number;
+    $data['index'] = "order"; 
+
+    $data['order'] = $order->get_All($limit,$offset);
+
     //load view
     $data['page_title'] = "quản lý đơn hàng";
     $this->view("admin/partials/_header", $data);

@@ -1,9 +1,16 @@
 <?php
 class Order
 {
-    function get_All(){
+    function get_All($limit = 0, $offset = 0)
+    {
         $db = new Database();
-        return $db->read("SELECT * FROM `order`");
+        if ($limit != 0 && $offset != 0) {
+            $limit = (int)$limit;
+            $offset = (int)$offset;
+            return $db->read("SELECT * FROM `order` LIMIT " . $limit . " OFFSET " . $offset);
+        } else {
+            return $db->read("SELECT * FROM `order` ");
+        }
     }
     function save_order($POST, $rows, $user_id, $total)
     {
@@ -15,14 +22,14 @@ class Order
         $data['created_date'] = date("Y-m-d h:i:s");
         if (is_array($rows)) {
             $data['delivery_name'] = trim($POST['c_name']);
-            $data['delivery_address'] = trim($POST['c_address_detail']) ." ". trim($POST['c_address']);
+            $data['delivery_address'] = trim($POST['c_address_detail']) . " " . trim($POST['c_address']);
             $data['delivery_phone'] = trim($POST['c_phone']);
             $data['note'] = ($POST['c_order_notes'] != null) ? trim($POST['c_order_notes']) : '';
         }
         $data['total'] = $total;
 
         $query = "INSERT INTO `order`(`customer_id`, `created_date`, `delivery_name`, `delivery_address`, `delivery_phone`, `note`, `total`) 
-        VALUES ('".$data['customer_id']."','".$data['created_date']."','".$data['delivery_name']."','".$data['delivery_address']."','".$data['delivery_phone']."','".$data['note']."','".$data['total']."')";
+        VALUES ('" . $data['customer_id'] . "','" . $data['created_date'] . "','" . $data['delivery_name'] . "','" . $data['delivery_address'] . "','" . $data['delivery_phone'] . "','" . $data['note'] . "','" . $data['total'] . "')";
         $result = $db->write($query);
 
 
@@ -33,24 +40,24 @@ class Order
 
         if (is_array($result1)) {
             $order_id = $result1[0]->id;
-            foreach ($rows as $row){
+            foreach ($rows as $row) {
                 $query2 = "INSERT INTO `order_detail`( `order_id`, `product_id`, `quantity`) 
-                VALUES ('".$order_id."','".$row->id."','".$row->cart_quantity."')";
+                VALUES ('" . $order_id . "','" . $row->id . "','" . $row->cart_quantity . "')";
                 $result2 = $db->write($query2);
                 //update quantity
                 $query3 = "UPDATE product SET quantity = quantity - $row->cart_quantity WHERE id = $row->id;";
                 $result3 = $db->write($query3);
-            } 
+            }
             unset($_SESSION['cart']);
             unset($_SESSION['number']);
-            header("Location:".ROOT."thankyou");
+            header("Location:" . ROOT . "thankyou");
             die;
         }
-        
-    }   
-    function count_Records(){
+    }
+    function count_Records()
+    {
         $db = new Database();
         $result = $db->read("SELECT COUNT(*) AS total FROM order;");
         return $result[0]->total;
-    }   
+    }
 }

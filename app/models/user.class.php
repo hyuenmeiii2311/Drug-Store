@@ -103,13 +103,12 @@ class User
         $db = new Database();
 
         if (isset($_SESSION['user'])) {
-            $data['user_id'] = $_SESSION['user']->id ;
+            $data['user_id'] = $_SESSION['user']->id;
             $query = "INSERT INTO `contact`(`user_id`, `name`, `email`, `created_date`, `subject`, `message`, `status`) 
             VALUES ('" . $data['user_id'] . "','" . $data['name'] . "','" . $data['email'] . "','" . $data['created_date'] . "','" . $data['subject'] . "','" . $data['message'] . "','" . $data['status'] . "')";
-        }
-        else{
+        } else {
             $query = "INSERT INTO `contact`( `name`, `email`, `created_date`, `subject`, `message`, `status`) 
-            VALUES ('". $data['name'] . "','" . $data['email'] . "','" . $data['created_date'] . "','" . $data['subject'] . "','" . $data['message'] . "','" . $data['status'] . "')";
+            VALUES ('" . $data['name'] . "','" . $data['email'] . "','" . $data['created_date'] . "','" . $data['subject'] . "','" . $data['message'] . "','" . $data['status'] . "')";
         }
 
         $result = $db->write($query);
@@ -119,9 +118,17 @@ class User
         }
     }
 
-    function get_All(){
+    function get_All($limit = 0, $offset = 0)
+    {
         $db = new Database();
-        return $db->read("SELECT `id`, `name`, `phone`, `email`, `gender`, `address`, `datebirth`, `role` FROM `user` ");
+        if ($limit != 0 && $offset != 0) {
+            $limit = (int)$limit;
+            $offset = (int)$offset;
+
+            return $db->read("SELECT `id`, `name`, `phone`, `email`, `gender`, `address`, `datebirth`, `role` FROM `user` LIMIT " . $limit . " OFFSET " . $offset);
+        } else {
+            return $db->read("SELECT `id`, `name`, `phone`, `email`, `gender`, `address`, `datebirth`, `role` FROM `user` ");
+        }
     }
 
     public function login_Admin($POST)
@@ -164,7 +171,8 @@ class User
             die;
         }
     }
-    function count_Records(){
+    function count_Records()
+    {
         $db = new Database();
         $result = $db->read("SELECT COUNT(*) AS total FROM product WHERE role = 'customer';");
         return $result[0]->total;
