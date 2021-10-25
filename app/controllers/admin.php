@@ -5,7 +5,7 @@ class Admin extends Controller
   function index()
   {
     $data['page_title'] = "Login";
-  
+
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
       // show($_POST);
 
@@ -14,15 +14,15 @@ class Admin extends Controller
     }
     $this->view("admin/pages/login", $data);
   }
-  
+
   //home
   function home()
   {
     $data['page_title'] = "Admin";
-  
-    $this->view("admin/partials/_header",$data);
-    $this->view("admin/index",$data);
-    $this->view("admin/partials/_footer",$data);
+
+    $this->view("admin/partials/_header", $data);
+    $this->view("admin/index", $data);
+    $this->view("admin/partials/_footer", $data);
   }
 
   function user()
@@ -36,10 +36,10 @@ class Admin extends Controller
     $total_records = $user->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
     $data['total_page'] = ceil($total_records / $limit);
     $data['current_page'] = $page_number;
-    $data['index'] = "user"; 
+    $data['index'] = "user";
 
 
-    $data['user'] = $user->get_All($limit,$offset);
+    $data['user'] = $user->get_Data($limit, $offset);
     //load view
     $data['page_title'] = "quản lý khách hàng";
     $this->view("admin/partials/_header", $data);
@@ -59,9 +59,9 @@ class Admin extends Controller
     $total_records = $category->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
     $data['total_page'] = ceil($total_records / $limit);
     $data['current_page'] = $page_number;
-    $data['index'] = "category"; 
+    $data['index'] = "category";
 
-    $data['category'] = $category->get_All($limit,$offset);
+    $data['category'] = $category->get_Data($limit, $offset);
 
     //load view
     $data['page_title'] = "quản lý thể loại";
@@ -80,9 +80,9 @@ class Admin extends Controller
     $total_records = $contact->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
     $data['total_page'] = ceil($total_records / $limit);
     $data['current_page'] = $page_number;
-    $data['index'] = "contact"; 
+    $data['index'] = "contact";
 
-    $data['contact'] = $contact->get_All($limit,$offset);
+    $data['contact'] = $contact->get_Data($limit, $offset);
     //load view
     $data['page_title'] = "quản lý liên hệ";
     $this->view("admin/partials/_header", $data);
@@ -123,9 +123,9 @@ class Admin extends Controller
     $total_records = $product_mix->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
     $data['total_page'] = ceil($total_records / $limit);
     $data['current_page'] = $page_number;
-    $data['index'] = "mix"; 
+    $data['index'] = "mix";
 
-    $data['product_mix'] = $product_mix->get_All($limit,$offset);
+    $data['product_mix'] = $product_mix->get_Data($limit, $offset);
     //load view
     $data['page_title'] = "quản lý danh mục";
     $this->view("admin/partials/_header", $data);
@@ -134,23 +134,38 @@ class Admin extends Controller
   }
   function brand()
   {
+    $data['page_title'] = "quản lý thương hiệu";
+
     $brand = $this->load_model('brand');
 
     //pagination
-    $limit = 4;
+    $limit = 5;
     $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
     $page_number = ($page_number < 1) ? 1 : $page_number;
     $offset = ($page_number - 1) * $limit; //start
-    $total_records = $brand->count_Records(); 
+    $total_records = $brand->count_Records();
     $data['total_page'] = ceil($total_records / $limit);
     $data['current_page'] = $page_number;
-    $data['index'] = "brand"; 
+    $data['index'] = "brand";
 
-    $data['brand'] = $brand->get_All($limit,$offset);
+    $data['brand'] = $brand->get_Data($limit, $offset);
     //load view
-    $data['page_title'] = "quản lý thương hiệu";
+
     $this->view("admin/partials/_header", $data);
     $this->view("admin/pages/brand/list", $data);
+    $this->view("admin/partials/_footer", $data);
+  }
+  function add_brand()
+  {
+    $data['page_title'] = "quản lý thương hiệu";
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+      $brand = $this->load_model("brand");
+      $brand->insert($_POST);
+    }
+    //load view
+    $this->view("admin/partials/_header", $data);
+    $this->view("admin/pages/brand/add", $data);
     $this->view("admin/partials/_footer", $data);
   }
   function order()
@@ -164,9 +179,9 @@ class Admin extends Controller
     $total_records = $order->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
     $data['total_page'] = ceil($total_records / $limit);
     $data['current_page'] = $page_number;
-    $data['index'] = "order"; 
+    $data['index'] = "order";
 
-    $data['order'] = $order->get_All($limit,$offset);
+    $data['order'] = $order->get_Data($limit, $offset);
 
     //load view
     $data['page_title'] = "quản lý đơn hàng";

@@ -7,7 +7,7 @@
                     <div class="card-body">
                         <h4 class="card-title"><?= ucwords($data['page_title']) ?></h4>
                         <p class="card-description">
-                            <a>
+                            <a href="<?= ROOT ?>admin/add_brand">
                                 <i class="mdi mdi-plus-circle-outline">Thêm mới</i>
                             </a>
                         </p>

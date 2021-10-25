@@ -1,17 +1,20 @@
 <?php
 class Order
 {
-    function get_All($limit = 0, $offset = 0)
+    function get_All()
     {
         $db = new Database();
-        if ($limit != 0 && $offset != 0) {
-            $limit = (int)$limit;
-            $offset = (int)$offset;
-            return $db->read("SELECT * FROM `order` LIMIT " . $limit . " OFFSET " . $offset);
-        } else {
-            return $db->read("SELECT * FROM `order` ");
-        }
+
+        return $db->read("SELECT * FROM `order` ");
     }
+    function get_Data($limit = 0, $offset = 0)
+    {
+        $db = new Database();
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+        return $db->read("SELECT * FROM `order` LIMIT " . $limit . " OFFSET " . $offset);
+    }
+
     function save_order($POST, $rows, $user_id, $total)
     {
         $db = new Database();

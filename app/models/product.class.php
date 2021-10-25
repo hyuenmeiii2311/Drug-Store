@@ -1,17 +1,15 @@
 <?php
 class Product
 {
-    function get_All($limit = 0, $offset = 0)
+    function get_All($limit , $offset)
     {
         $db = new Database();
-        if ($limit != 0 && $offset != 0) {
+
             $limit = (int)$limit;
             $offset = (int)$offset;
             
             return $db->read("SELECT * FROM product LIMIT " . $limit . " OFFSET " . $offset);
-        } else {
-            return $db->read("SELECT * FROM product ");
-        }
+
     }
     function search($keyword, $limit, $offset)
     {

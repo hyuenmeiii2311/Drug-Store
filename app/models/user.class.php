@@ -118,17 +118,19 @@ class User
         }
     }
 
-    function get_All($limit = 0, $offset = 0)
+    function get_All()
     {
         $db = new Database();
-        if ($limit != 0 && $offset != 0) {
-            $limit = (int)$limit;
-            $offset = (int)$offset;
+        return $db->read("SELECT `id`, `name`, `phone`, `email`, `gender`, `address`, `datebirth`, `role` FROM `user` ");
+    }
+    function get_Data($limit = 0, $offset = 0)
+    {
+        $db = new Database();
 
-            return $db->read("SELECT `id`, `name`, `phone`, `email`, `gender`, `address`, `datebirth`, `role` FROM `user` LIMIT " . $limit . " OFFSET " . $offset);
-        } else {
-            return $db->read("SELECT `id`, `name`, `phone`, `email`, `gender`, `address`, `datebirth`, `role` FROM `user` ");
-        }
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+
+        return $db->read("SELECT `id`, `name`, `phone`, `email`, `gender`, `address`, `datebirth`, `role` FROM `user` LIMIT " . $limit . " OFFSET " . $offset);
     }
 
     public function login_Admin($POST)

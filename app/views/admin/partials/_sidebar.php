@@ -32,7 +32,7 @@
       <div class="collapse" id="brand">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="<?= ROOT ?>admin/brand">Xem</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">Thêm</a></li>
+          <li class="nav-item"> <a class="nav-link" href="<?= ROOT ?>admin/add_brand">Thêm</a></li>
 
         </ul>
       </div>

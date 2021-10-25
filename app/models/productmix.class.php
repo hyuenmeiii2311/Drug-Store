@@ -1,17 +1,20 @@
 <?php
 class ProductMix
 {
-    function get_All($limit = 0, $offset = 0)
+    function get_Data($limit = 0, $offset = 0)
     {
         $db = new Database();
-        if ($limit != 0 && $offset != 0) {
-            $limit = (int)$limit;
-            $offset = (int)$offset;
 
-            return $db->read("SELECT * FROM product_mix LIMIT " . $limit . " OFFSET " . $offset);
-        } else {
-            return $db->read("SELECT * FROM product_mix ");
-        }
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+
+        return $db->read("SELECT * FROM product_mix LIMIT " . $limit . " OFFSET " . $offset);
+    }
+    function get_All()
+    {
+        $db = new Database();
+
+        return $db->read("SELECT * FROM product_mix ");
     }
     function count_Records()
     {
