@@ -4,8 +4,9 @@ class Category
     function get_All()
     {
         $db = new Database();
-        return $db->read("SELECT category.id as id, category.name as name, product_mix.name as mix_name
-        FROM `category` INNER JOIN product_mix on category.product_mix_id = product_mix.id");
+        // return $db->read("SELECT category.id as id, category.name as name, product_mix.name as mix_name
+        // FROM `category` INNER JOIN product_mix on category.product_mix_id = product_mix.id");
+        return $db->read("select * from category");
     }
     function get_Data($limit = 0, $offset = 0)
     {

@@ -1,6 +1,7 @@
 <?php
 class Brand
 {
+    
     function get_All()
     {
         $db = new Database();
@@ -21,7 +22,7 @@ class Brand
     }
     function insert($POST)
     {
-        show($POST);
+        // show($POST);
         $db = new Database();
         $data = array();
 
@@ -34,5 +35,19 @@ class Brand
             header("Location:" . ROOT . "admin/brand");
             die;
         }
+    }
+    function get_By_Id($id){
+        $id = (int)$id;
+        $db = new Database();
+        $result = $db->read("SELECT * FROM brand WHERE id = $id");
+        return $result[0];
+    }
+    function update($POST){
+        $data = array();
+
+        $data['name'] = trim($POST['name']);
+        $data['brand_id'] = trim($POST['brand_id']);
+        $db = new Database();
+        return  $db->write("UPDATE `brand` SET `name`='".$data['name']."' WHERE `id`='".$data['brand_id']."';");
     }
 }

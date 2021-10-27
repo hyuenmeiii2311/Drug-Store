@@ -184,6 +184,7 @@
     }
 </style>
 <script>
+
     function checkLogin() {
         if (confirm('Login to continue purchasing?')) {
             // Save it!

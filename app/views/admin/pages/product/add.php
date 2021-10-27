@@ -13,7 +13,7 @@
                                 <label>Tên sản phẩm</label>
                                 <input type="text" class="form-control" id="product" name="product" placeholder="Nhập tên sản phẩm">
                             </div>
-                            
+
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label>Trọng lượng</label>
@@ -22,10 +22,12 @@
                                 <div class="col-md-6">
                                     <label>Đơn vị</label>
                                     <select class="form-control" id="unit" name="unit">
-                                        <option>Category1</option>
-                                        <option>Category2</option>
-                                        <option>Category3</option>
-                                        <option>Category4</option>
+                                        <option>Viên</option>
+                                        <option>Hộp</option>
+                                        <option>Chiếc</option>
+                                        <option>Cái</option>
+                                        <option>Tuýp</option>
+                                        <option>Chai</option>
                                     </select>
                                 </div>
                             </div>
@@ -50,24 +52,26 @@
                                     </span>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label>Thể loại</label>
                                     <select class="form-control" id="category_id" name="category_id">
-                                        <option>Category1</option>
-                                        <option>Category2</option>
-                                        <option>Category3</option>
-                                        <option>Category4</option>
+                                        <?php if (isset($data['category']) && is_array($data['category'])) : ?>
+                                            <?php foreach ($data['category'] as $item) : ?>
+                                                <option><?= $item->name ?></option>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Thương hiệu</label>
                                     <select class="form-control" id="brand_id" name="brand_id">
-                                        <option>Category1</option>
-                                        <option>Category2</option>
-                                        <option>Category3</option>
-                                        <option>Category4</option>
+                                        <?php if (isset($data['brand']) && is_array($data['brand'])) : ?>
+                                            <?php foreach ($data['brand'] as $item) : ?>
+                                                <option><?= $item->name ?></option>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
                                     </select>
                                 </div>
                             </div>
@@ -76,7 +80,7 @@
                                 <label>Mô tả</label>
                                 <textarea class="form-control" id="description" name="description" rows="5"></textarea>
                             </div>
-                            
+
 
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
                             <button class="btn btn-light">Cancel</button>

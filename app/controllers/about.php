@@ -10,8 +10,8 @@ class About extends Controller
         $data['product_mix']= $list->get_All();
         
         $this->view("client/header",$data);
-        // $this->view("about",$data);
-        $this->view("client/test",$data);
+        $this->view("about",$data);
+        // $this->view("client/test",$data);
         $this->view("client/footer",$data);
     }
     

@@ -112,6 +112,21 @@ class Admin extends Controller
     $this->view("admin/pages/product/list", $data);
     $this->view("admin/partials/_footer", $data);
   }
+  function add_product()
+  {
+    $data['page_title'] = "quản lý sản phẩm";
+    $cate = $this->load_model('Category');
+    $data['category'] = $cate->get_All();
+    $brand = $this->load_model('Brand');
+    $data['brand'] = $brand->get_All();
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    }
+
+    //load view
+    $this->view("admin/partials/_header", $data);
+    $this->view("admin/pages/product/add", $data);
+    $this->view("admin/partials/_footer", $data);
+  }
   function mix()
   {
     $product_mix = $this->load_model('productmix');
@@ -138,36 +153,56 @@ class Admin extends Controller
 
     $brand = $this->load_model('brand');
 
-    //pagination
-    $limit = 5;
-    $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
-    $page_number = ($page_number < 1) ? 1 : $page_number;
-    $offset = ($page_number - 1) * $limit; //start
-    $total_records = $brand->count_Records();
-    $data['total_page'] = ceil($total_records / $limit);
-    $data['current_page'] = $page_number;
-    $data['index'] = "brand";
+    if (!isset($_GET['action'])) {
+      //pagination
+      $limit = 5;
+      $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
+      $page_number = ($page_number < 1) ? 1 : $page_number;
+      $offset = ($page_number - 1) * $limit; //start
+      $total_records = $brand->count_Records();
+      $data['total_page'] = ceil($total_records / $limit);
+      $data['current_page'] = $page_number;
+      $data['index'] = "brand";
 
-    $data['brand'] = $brand->get_Data($limit, $offset);
-    //load view
+      $data['brand'] = $brand->get_Data($limit, $offset);
+      //load view
 
-    $this->view("admin/partials/_header", $data);
-    $this->view("admin/pages/brand/list", $data);
-    $this->view("admin/partials/_footer", $data);
-  }
-  function add_brand()
-  {
-    $data['page_title'] = "quản lý thương hiệu";
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+      $this->view("admin/partials/_header", $data);
+      $this->view("admin/pages/brand/list", $data);
+      $this->view("admin/partials/_footer", $data);
+    } 
+    elseif (isset($_GET['action']) && $_GET['action'] == "add") {
+      $data['page_title'] = "quản lý thương hiệu";
+      $data ['index'] = $_GET['action'];
 
-      $brand = $this->load_model("brand");
-      $brand->insert($_POST);
+      if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $brand->insert($_POST);
+      }
+
+      //load view
+      $this->view("admin/partials/_header", $data);
+      $this->view("admin/pages/brand/add", $data);
+      $this->view("admin/partials/_footer", $data);
+
+    }elseif(isset($_GET['action']) && $_GET['action'] == "edit"&& isset($_GET['id']) ){
+      $data['page_title'] = "quản lý thương hiệu";
+      $data ['index'] = $_GET['action'];
+      $data['row'] = $brand->get_By_Id($_GET['id']);
+
+      if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $brand->update($_POST);
+        header("Location: " . ROOT."admin/brand");
+      }
+
+      //load view
+      $this->view("admin/partials/_header", $data);
+      $this->view("admin/pages/brand/add", $data);
+      $this->view("admin/partials/_footer", $data);
+
     }
-    //load view
-    $this->view("admin/partials/_header", $data);
-    $this->view("admin/pages/brand/add", $data);
-    $this->view("admin/partials/_footer", $data);
   }
+
+
   function order()
   {
     $order = $this->load_model('order');
