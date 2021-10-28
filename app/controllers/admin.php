@@ -99,6 +99,8 @@ class Admin extends Controller
   function contact()
   {
     $contact = $this->load_model('contact');
+    $data['page_title'] = "quản lý liên hệ";
+    if (!isset($_GET['action'])) {
     //pagination
     $limit = 5;
     $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
@@ -111,10 +113,25 @@ class Admin extends Controller
 
     $data['contact'] = $contact->get_Data($limit, $offset);
     //load view
-    $data['page_title'] = "quản lý liên hệ";
+    
     $this->view("admin/partials/_header", $data);
     $this->view("admin/pages/contact/list", $data);
     $this->view("admin/partials/_footer", $data);
+    }elseif (isset($_GET['action']) && $_GET['action'] == "edit" && isset($_GET['id'])) {
+      $data['row'] = $contact->get_By_Id($_GET['id']);
+  
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+          $result = $contact->update($_POST);
+          if($result){
+            header("Location: " . ROOT . "admin/contact");
+          }  
+        }
+  
+      //load view
+      $this->view("admin/partials/_header", $data);
+      $this->view("admin/pages/contact/edit", $data);
+      $this->view("admin/partials/_footer", $data);
+    } 
   }
   function product()
   {
@@ -179,7 +196,6 @@ class Admin extends Controller
         header("Location: " . ROOT . "admin/mix");
       }
     }
-
 
     //load view
     $this->view("admin/partials/_header", $data);

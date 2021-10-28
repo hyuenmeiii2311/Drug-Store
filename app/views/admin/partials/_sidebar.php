@@ -80,8 +80,6 @@
       <div class="collapse" id="contact">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="<?= ROOT ?>admin/contact">Xem</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">Thêm</a></li>
-
         </ul>
       </div>
     </li>

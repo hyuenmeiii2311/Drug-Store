@@ -33,14 +33,16 @@
                                                 <td><?= $item->subject ?></td>
                                                 <td><?= $item->message ?></td>
                                                 <td>
-                                                    <?php if($item->status == 0) : ?>
+                                                    <?php if ($item->status == 0) : ?>
                                                         <label class="badge badge-warning">Chưa trả lời</label>
-                                                    <?php else :?>
-                                                        <label class="badge badge-success">Trả lời</label>
-                                                    <?php endif;?>
+                                                    <?php else : ?>
+                                                        <label class="badge badge-success">Đã trả lời</label>
+                                                    <?php endif; ?>
                                                 </td>
                                                 <td>
-                                                    <i class="mdi mdi-table-edit"></i>Edit |
+                                                    <a style="color: black;" href="<?= ROOT . "admin/contact?action=edit&id=" . $item->id ?>">
+                                                        <i class="mdi mdi-table-edit"></i>Edit
+                                                    </a> |
                                                     <i class="mdi mdi-delete"></i>Delete
                                                 </td>
                                             </tr>

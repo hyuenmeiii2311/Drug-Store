@@ -8,41 +8,55 @@
                         <p class="card-description">
                             Thông tin liên lạc
                         </p>
-                        <form class="forms-sample">
+                        <form class="forms-sample" method="POST" onsubmit="return validate()">
                             <div class="form-group row">
                                 <div class="col-md-6">
-                                    <label>Mã người dùng</label>
-                                    <input type="text" class="form-control" id="user_id" name="user_id">
+                                    <label>Địa chỉ email</label>
+                                    <input type="email" value="<?= $data['row']->email ?>" disabled class="form-control" id="email" name="email">
+                                    <input type="hidden" name="contact_id" value="<?=  $data['row']->id?>">
+                                
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Địa chỉ email</label>
-                                    <input type="email" class="form-control" id="email" name="email">
-
+                                    <label>Trạng thái</label>
+                                    <select class="js-example-basic-single w-100" name="status">
+                                        <option <?php ($data['row'] == 0) ? 'selected"' : ""?> value="0">Chưa trả lời</option>
+                                        <option <?php ($data['row'] == 1) ? "selected" : ""?> value="1">Đã trả lời</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Họ và tên</label>
-                                <input type="text" class="form-control" id="name" name="name">
+                                <input type="text" value="<?= $data['row']->name ?>" disabled class="form-control" id="name" name="name">
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label>Tiêu đề</label>
-                                    <input type="email" class="form-control" id="subject" name="subject">
+                                    <input type="text" value="<?= $data['row']->subject ?>" disabled class="form-control" id="subject" name="subject">
                                 </div>
                                 <div class="col-md-6">
                                     <label>Ngày gửi</label>
-                                    <input type="datetime" class="form-control" id="created_date" name="created_date">
+                                    <input type="datetime" value="<?= $data['row']->created_date ?>" disabled class="form-control" id="created_date" name="created_date">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Nội dung</label>
-                                <textarea class="form-control" id="message" name="message" rows="5"></textarea>
+                                <textarea disabled class="form-control" id="message" name="message" rows="5"><?= $data['row']->message ?></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Javascript -->
+    <script>
+        function validate() {
+            var status = document.getElementById("status").value;
+            if (status == "") {
+                alert("Hãy điền trạng thái !");
+                return false;
+            }
+        }
+    </script>
+    <!-- //Javascript -->

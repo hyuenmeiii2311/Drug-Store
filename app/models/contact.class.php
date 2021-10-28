@@ -19,4 +19,18 @@ class Contact
         $result = $db->read("SELECT COUNT(*) AS total FROM contact;");
         return $result[0]->total;
     }
+    function get_By_Id($id){
+        $id = (int)$id;
+        $db = new Database();
+        $result = $db->read("SELECT * FROM contact WHERE id = $id");
+        return $result[0];
+    }
+    function update($POST){
+        $data = array();
+
+        $data['contact_id'] = trim($POST['contact_id']);
+        $data['status'] = trim($POST['status']);
+        $db = new Database();
+        return  $db->write("UPDATE `contact` SET `status`='".$data['status']."' WHERE `id`='".$data['contact_id']."'");
+    }
 }
