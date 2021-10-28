@@ -1,13 +1,12 @@
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="row">
-
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title"><?= ucwords($data['page_title']) ?></h4>
                         <p class="card-description">
-                            <a>
+                            <a href="<?= ROOT ?>admin/mix?action=add">
                                 <i class="mdi mdi-plus-circle-outline">Thêm mới</i>
                             </a>
                         </p>
@@ -16,7 +15,7 @@
                                 <thead>
                                     <tr>
                                         <th>Tên danh mục</th>
-                                    
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -24,9 +23,11 @@
                                         <?php foreach ($data['product_mix'] as $item) : ?>
                                             <tr>
                                                 <td><?= $item->name ?></td>
-                                                
+
                                                 <td>
-                                                    <i class="mdi mdi-table-edit"></i>Edit |
+                                                    <a style="color: black;" href="<?= ROOT . "admin/mix?action=edit&id=" . $item->id ?>">
+                                                        <i class="mdi mdi-table-edit"></i>Edit
+                                                    </a> |
                                                     <i class="mdi mdi-delete"></i>Delete
                                                 </td>
                                             </tr>

@@ -114,7 +114,7 @@
       <div class="collapse" id="tables">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="<?= ROOT ?>admin/mix">Xem</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">Thêm</a></li>
+          <li class="nav-item"> <a class="nav-link" href="<?= ROOT ?>admin/mix?action=add">Thêm</a></li>
         </ul>
       </div>
     </li>

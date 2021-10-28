@@ -143,27 +143,53 @@ class Admin extends Controller
   function mix()
   {
     $product_mix = $this->load_model('productmix');
+    $data['page_title'] = "quản lý danh mục";
+
+    if (!isset($_GET['action'])) {
     //pagination
     $limit = 5;
     $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
     $page_number = ($page_number < 1) ? 1 : $page_number;
     $offset = ($page_number - 1) * $limit; //start
-    $total_records = $product_mix->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
+    $total_records = $product_mix->count_Records(); 
     $data['total_page'] = ceil($total_records / $limit);
     $data['current_page'] = $page_number;
     $data['index'] = "mix";
 
     $data['product_mix'] = $product_mix->get_Data($limit, $offset);
+    
     //load view
-    $data['page_title'] = "quản lý danh mục";
     $this->view("admin/partials/_header", $data);
     $this->view("admin/pages/product_mix/list", $data);
     $this->view("admin/partials/_footer", $data);
+  }elseif (isset($_GET['action'])) {
+    $data['index'] = $_GET['action'];
+    //add
+    if ($_GET['action'] == "add") {
+      if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $product_mix->insert($_POST);
+      }
+    } 
+     //edit
+     elseif ($_GET['action'] == "edit" && isset($_GET['id'])) {
+      $data['row'] = $product_mix->get_By_Id($_GET['id']);
+
+      if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $product_mix->update($_POST);
+        header("Location: " . ROOT . "admin/mix");
+      }
+    }
+
+
+    //load view
+    $this->view("admin/partials/_header", $data);
+    $this->view("admin/pages/product_mix/add", $data);
+    $this->view("admin/partials/_footer", $data);
+  } 
   }
   function brand()
   {
     $data['page_title'] = "quản lý thương hiệu";
-
     $brand = $this->load_model('brand');
 
     if (!isset($_GET['action'])) {
