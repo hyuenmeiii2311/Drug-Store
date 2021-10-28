@@ -6,7 +6,7 @@
                     <div class="card-body">
                         <h4 class="card-title"><?= ucwords($data['page_title']) ?></h4>
                         <p class="card-description">
-                            <a>
+                            <a href="<?= ROOT ?>admin/category?action=add">
                                 <i class="mdi mdi-plus-circle-outline">Thêm mới</i>
                             </a>
                         </p>
@@ -25,7 +25,10 @@
                                                 <td><?= $item->name ?></td>
                                                 <td><?= $item->mix_name ?></td>
                                                 <td>
-                                                    <i class="mdi mdi-table-edit"></i>Edit |
+                                                    <a style="color: black;" href="<?= ROOT . "admin/category?action=edit&id=" . $item->id ?>">
+                                                        <i class="mdi mdi-table-edit"></i>Edit
+                                                    </a>
+                                                    |
                                                     <i class="mdi mdi-delete"></i>Delete
                                                 </td>
                                             </tr>

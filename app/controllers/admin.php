@@ -33,7 +33,7 @@ class Admin extends Controller
     $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
     $page_number = ($page_number < 1) ? 1 : $page_number;
     $offset = ($page_number - 1) * $limit; //start
-    $total_records = $user->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
+    $total_records = $user->count_Records();
     $data['total_page'] = ceil($total_records / $limit);
     $data['current_page'] = $page_number;
     $data['index'] = "user";
@@ -50,24 +50,51 @@ class Admin extends Controller
   function category()
   {
     $category = $this->load_model('category');
-
-    //pagination
-    $limit = 5;
-    $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
-    $page_number = ($page_number < 1) ? 1 : $page_number;
-    $offset = ($page_number - 1) * $limit; //start
-    $total_records = $category->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
-    $data['total_page'] = ceil($total_records / $limit);
-    $data['current_page'] = $page_number;
-    $data['index'] = "category";
-
-    $data['category'] = $category->get_Data($limit, $offset);
-
-    //load view
     $data['page_title'] = "quản lý thể loại";
-    $this->view("admin/partials/_header", $data);
-    $this->view("admin/pages/category/list", $data);
-    $this->view("admin/partials/_footer", $data);
+
+    if (!isset($_GET['action'])) {
+      //pagination
+      $limit = 5;
+      $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
+      $page_number = ($page_number < 1) ? 1 : $page_number;
+      $offset = ($page_number - 1) * $limit; //start
+      $total_records = $category->count_Records();
+      $data['total_page'] = ceil($total_records / $limit);
+      $data['current_page'] = $page_number;
+      $data['index'] = "category";
+
+      $data['category'] = $category->get_Data($limit, $offset);
+
+      //load view
+
+      $this->view("admin/partials/_header", $data);
+      $this->view("admin/pages/category/list", $data);
+      $this->view("admin/partials/_footer", $data);
+    }elseif (isset($_GET['action'])) {
+      $data['index'] = $_GET['action'];
+      $product_mix = $this->load_model('productmix');
+      $data['mix'] = $product_mix->get_All();
+      //add
+      if ($_GET['action'] == "add") {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+          $category->insert($_POST);
+        }
+      } 
+      //edit
+      elseif ($_GET['action'] == "edit" && isset($_GET['id'])) {
+        $data['row'] = $category->get_By_Id($_GET['id']);
+
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+          $category->update($_POST);
+          header("Location: " . ROOT . "admin/category");
+        }
+      }
+
+      //load view
+      $this->view("admin/partials/_header", $data);
+      $this->view("admin/pages/category/add", $data);
+      $this->view("admin/partials/_footer", $data);
+    } 
   }
   function contact()
   {
@@ -77,7 +104,7 @@ class Admin extends Controller
     $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
     $page_number = ($page_number < 1) ? 1 : $page_number;
     $offset = ($page_number - 1) * $limit; //start
-    $total_records = $contact->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
+    $total_records = $contact->count_Records();
     $data['total_page'] = ceil($total_records / $limit);
     $data['current_page'] = $page_number;
     $data['index'] = "contact";
@@ -112,21 +139,7 @@ class Admin extends Controller
     $this->view("admin/pages/product/list", $data);
     $this->view("admin/partials/_footer", $data);
   }
-  function add_product()
-  {
-    $data['page_title'] = "quản lý sản phẩm";
-    $cate = $this->load_model('Category');
-    $data['category'] = $cate->get_All();
-    $brand = $this->load_model('Brand');
-    $data['brand'] = $brand->get_All();
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    }
 
-    //load view
-    $this->view("admin/partials/_header", $data);
-    $this->view("admin/pages/product/add", $data);
-    $this->view("admin/partials/_footer", $data);
-  }
   function mix()
   {
     $product_mix = $this->load_model('productmix');
@@ -165,40 +178,30 @@ class Admin extends Controller
       $data['index'] = "brand";
 
       $data['brand'] = $brand->get_Data($limit, $offset);
-      //load view
 
+      //load view
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/brand/list", $data);
       $this->view("admin/partials/_footer", $data);
-    } 
-    elseif (isset($_GET['action']) && $_GET['action'] == "add") {
-      $data['page_title'] = "quản lý thương hiệu";
-      $data ['index'] = $_GET['action'];
+    } elseif (isset($_GET['action'])) {
+      $data['index'] = $_GET['action'];
+      if ($_GET['action'] == "add") {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+          $brand->insert($_POST);
+        }
+      } elseif ($_GET['action'] == "edit" && isset($_GET['id'])) {
+        $data['row'] = $brand->get_By_Id($_GET['id']);
 
-      if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        $brand->insert($_POST);
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+          $brand->update($_POST);
+          header("Location: " . ROOT . "admin/brand");
+        }
       }
 
       //load view
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/brand/add", $data);
       $this->view("admin/partials/_footer", $data);
-
-    }elseif(isset($_GET['action']) && $_GET['action'] == "edit"&& isset($_GET['id']) ){
-      $data['page_title'] = "quản lý thương hiệu";
-      $data ['index'] = $_GET['action'];
-      $data['row'] = $brand->get_By_Id($_GET['id']);
-
-      if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        $brand->update($_POST);
-        header("Location: " . ROOT."admin/brand");
-      }
-
-      //load view
-      $this->view("admin/partials/_header", $data);
-      $this->view("admin/pages/brand/add", $data);
-      $this->view("admin/partials/_footer", $data);
-
     }
   }
 
@@ -211,7 +214,7 @@ class Admin extends Controller
     $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
     $page_number = ($page_number < 1) ? 1 : $page_number;
     $offset = ($page_number - 1) * $limit; //start
-    $total_records = $order->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
+    $total_records = $order->count_Records();
     $data['total_page'] = ceil($total_records / $limit);
     $data['current_page'] = $page_number;
     $data['index'] = "order";

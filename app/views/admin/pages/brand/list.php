@@ -14,7 +14,7 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
-                                    <tr>     
+                                    <tr>
                                         <th>Tên thương hiệu</th>
                                     </tr>
                                 </thead>
@@ -22,12 +22,12 @@
                                     <?php if (isset($data['brand']) && is_array($data['brand'])) : ?>
                                         <?php foreach ($data['brand'] as $item) : ?>
                                             <tr>
-                                              
+
                                                 <td><?= $item->name ?></td>
-                                                
+
                                                 <td>
-                                                    <a style="color: black;" href="<?= ROOT."admin/brand?action=edit&id=". $item->id ?>">
-                                                    <i class="mdi mdi-table-edit"></i>Edit 
+                                                    <a style="color: black;" href="<?= ROOT . "admin/brand?action=edit&id=" . $item->id ?>">
+                                                        <i class="mdi mdi-table-edit"></i>Edit
                                                     </a>
                                                     |
                                                     <i class="mdi mdi-delete"></i>Delete

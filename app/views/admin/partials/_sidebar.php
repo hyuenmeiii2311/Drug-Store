@@ -97,7 +97,7 @@
       <div class="collapse" id="cate">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="<?= ROOT ?>admin/category">Xem</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">Thêm</a></li>
+          <li class="nav-item"> <a class="nav-link" href="<?= ROOT ?>admin/category?action=add">Thêm</a></li>
 
         </ul>
       </div>
