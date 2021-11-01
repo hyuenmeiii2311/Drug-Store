@@ -5,11 +5,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title"><?= ucwords($data['page_title']) ?></h4>
-                        <p class="card-description">
-                            <a>
-                                <i class="mdi mdi-plus-circle-outline">Thêm mới</i>
-                            </a>
-                        </p>
+                        <p class="card-description">Thông tin khách hàng</p>
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -33,7 +29,9 @@
                                                 <td><?= $item->address ?></td>
                                                 <td><?= $item->datebirth ?></td>
                                                 <td>
-                                                    <i class="mdi mdi-table-edit"></i>Edit |
+                                                    <a style="color: black;" href="<?= ROOT . "admin/user?action=edit&id=" . $item->id ?>">
+                                                        <i class="mdi mdi-table-edit"></i>Edit
+                                                    </a> |
                                                     <i class="mdi mdi-delete"></i>Delete
                                                 </td>
                                             </tr>
@@ -46,14 +44,12 @@
                                 </tbody>
                             </table>
                         </div>
-                        
-                    </div>
-                    <!--Pagination -->
-                    <?php require './app/views/admin/partials/_pagination.php' ?>
-                    <!--//Pagination -->
+                        <!--Pagination -->
+                        <?php require './app/views/admin/partials/_pagination.php' ?>
+                        <!--//Pagination -->
+                    </div>    
                 </div>
             </div>
-
         </div>
     </div>
 </div>

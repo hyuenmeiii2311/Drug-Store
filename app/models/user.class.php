@@ -87,7 +87,7 @@ class User
         }
     }
 
-    public function add_Contact($POST)
+    public function add_user($POST)
     {
         // show($POST);
         $data = array();
@@ -104,16 +104,16 @@ class User
 
         if (isset($_SESSION['user'])) {
             $data['user_id'] = $_SESSION['user']->id;
-            $query = "INSERT INTO `contact`(`user_id`, `name`, `email`, `created_date`, `subject`, `message`, `status`) 
+            $query = "INSERT INTO `user`(`user_id`, `name`, `email`, `created_date`, `subject`, `message`, `status`) 
             VALUES ('" . $data['user_id'] . "','" . $data['name'] . "','" . $data['email'] . "','" . $data['created_date'] . "','" . $data['subject'] . "','" . $data['message'] . "','" . $data['status'] . "')";
         } else {
-            $query = "INSERT INTO `contact`( `name`, `email`, `created_date`, `subject`, `message`, `status`) 
+            $query = "INSERT INTO `user`( `name`, `email`, `created_date`, `subject`, `message`, `status`) 
             VALUES ('" . $data['name'] . "','" . $data['email'] . "','" . $data['created_date'] . "','" . $data['subject'] . "','" . $data['message'] . "','" . $data['status'] . "')";
         }
 
         $result = $db->write($query);
         if ($result) {
-            header("Location:" . ROOT . "contact?success=true");
+            header("Location:" . ROOT . "user?success=true");
             die;
         }
     }
@@ -130,7 +130,7 @@ class User
         $limit = (int)$limit;
         $offset = (int)$offset;
 
-        return $db->read("SELECT `id`, `name`, `phone`, `email`, `gender`, `address`, `datebirth`, `role` FROM `user` LIMIT " . $limit . " OFFSET " . $offset);
+        return $db->read("SELECT `id`, `name`, `phone`, `email`, `gender`, `address`, `datebirth`, `role` FROM `user` WHERE role = 'customer' LIMIT " . $limit . " OFFSET " . $offset);
     }
 
     public function login_Admin($POST)
@@ -176,7 +176,36 @@ class User
     function count_Records()
     {
         $db = new Database();
-        $result = $db->read("SELECT COUNT(*) AS total FROM product WHERE role = 'customer';");
+        $result = $db->read("SELECT COUNT(*) AS total FROM user WHERE role = 'customer';");
         return $result[0]->total;
+    }
+    function get_By_Id($id){
+        $id = (int)$id;
+        $db = new Database();
+        $result = $db->read("SELECT * FROM user WHERE id = $id AND role = 'customer'");
+        return $result[0];
+    }
+    function update($POST){
+        $data = array();
+
+        $data['user_id'] = trim($POST['user_id']);
+        $data['name'] = trim($POST['name']);
+        $data['email'] = trim($POST['email']);
+        $data['password'] = trim($POST['password']);
+        $data['old_password'] = trim($POST['old_password']);
+        $data['gender'] = trim($POST['gender']);
+        $data['datebirth'] = trim($POST['datebirth']);
+        $data['phone'] = trim($POST['phone']);
+        $data['address'] = trim($POST['address']);
+        if($data['old_password'] != $data['password']){
+            $data['new_password'] = hash('sha1', $POST['password']);
+            $query = "UPDATE `user` SET `name`='".$data['name']."',`phone`='".$data['phone']."',`email`='".$data['email']."',`password`='".$data['new_password']."',`gender`='".$data['gender']."',`address`='".$data['address']."',`datebirth`='".$data['datebirth']."' WHERE `id`='".$data['user_id']."'";
+        }
+        else{
+            $query = "UPDATE `user` SET `name`='".$data['name']."',`phone`='".$data['phone']."',`email`='".$data['email']."',`password`='".$data['password']."',`gender`='".$data['gender']."',`address`='".$data['address']."',`datebirth`='".$data['datebirth']."' WHERE `id`='".$data['user_id']."'";
+        }
+
+        $db = new Database();
+        return  $db->write($query);
     }
 }

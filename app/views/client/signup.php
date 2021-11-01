@@ -158,6 +158,10 @@
 
         //check phone
         var phone = document.forms["SignUp"]["phone"].value;
+        if (phone == "") {
+            alert("Điện thoại không hợp lệ!");
+            return false;
+        }
         if (!validatePhoneNumber(phone)) {
             alert("Điện thoại không hợp lệ!");
             return false;

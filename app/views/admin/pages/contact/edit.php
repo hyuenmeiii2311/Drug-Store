@@ -19,8 +19,8 @@
                                 <div class="col-md-6">
                                     <label>Trạng thái</label>
                                     <select class="js-example-basic-single w-100" name="status">
-                                        <option <?php ($data['row'] == 0) ? 'selected"' : ""?> value="0">Chưa trả lời</option>
-                                        <option <?php ($data['row'] == 1) ? "selected" : ""?> value="1">Đã trả lời</option>
+                                        <option <?php ($data['row']->status == 0) ? 'selected"' : ""?> value="0">Chưa trả lời</option>
+                                        <option <?php ($data['row']->status == 1) ? "selected" : ""?> value="1">Đã trả lời</option>
                                     </select>
                                 </div>
                             </div>
