@@ -67,9 +67,7 @@
             </div>
         </div>
     </div>
-<?php } else {
-    require 'product_not_found.php';
-} ?>
+<?php }  ?>
 <!-- //Related Products-->
 
 

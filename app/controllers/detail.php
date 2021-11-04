@@ -10,7 +10,7 @@ class Detail extends Controller
         $product = $db->read("select * from product where id = :id ",['id'=>$id]);
         $data['product'] =  $product[0];
         $data['page_title'] = ($product[0] != null) ? $product[0]->name : "Not Found";
-        $product_brand = $db->read("SELECT brand.name FROM product,brand WHERE product.id = brand.id and product.id = :id;",['id'=>$id]);
+        $product_brand = $db->read("SELECT brand.name FROM product,brand WHERE product.id = brand.id and product.id = $id;");
         $data['product_brand'] =  $product_brand[0];
 
 

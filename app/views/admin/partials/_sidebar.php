@@ -16,7 +16,7 @@
       <div class="collapse" id="product">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="<?= ROOT ?>admin/product">Xem</a></li>
-          <li class="nav-item"> <a class="nav-link" href="<?= ROOT ?>admin/add_product">Thêm</a></li>
+          <li class="nav-item"> <a class="nav-link" href="<?= ROOT ?>admin/product?action=add">Thêm</a></li>
         </ul>
       </div>
     </li>

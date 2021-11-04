@@ -112,6 +112,7 @@ class Admin extends Controller
       $this->view("admin/partials/_footer", $data);
     }
   }
+
   function contact()
   {
     $contact = $this->load_model('contact');
@@ -152,25 +153,56 @@ class Admin extends Controller
   function product()
   {
     $product = $this->load_model('product');
+    $category = $this->load_model('category');
+    $brand = $this->load_model('brand');
 
-    //pagination
-    $limit = 5;
-    $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
-    $page_number = ($page_number < 1) ? 1 : $page_number;
-    $offset = ($page_number - 1) * $limit; //start
-    $total_records = $product->count_Records(); //viết thêm câu truy vấn đếm số bản ghi ở models
-    $data['total_page'] = ceil($total_records / $limit);
-    $data['current_page'] = $page_number;
-    $data['index'] = "product"; //thay đổi tên function
-
-    //get product
-    $data['product'] = $product->get_All($limit, $offset); //thêm $limit,$offset ở models
-
-    //load view
     $data['page_title'] = "quản lý sản phẩm";
-    $this->view("admin/partials/_header", $data);
-    $this->view("admin/pages/product/list", $data);
-    $this->view("admin/partials/_footer", $data);
+
+    if (!isset($_GET['action'])) {
+      //pagination
+      $limit = 5;
+      $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
+      $page_number = ($page_number < 1) ? 1 : $page_number;
+      $offset = ($page_number - 1) * $limit; //start
+      $total_records = $product->count_Records();
+      $data['total_page'] = ceil($total_records / $limit);
+      $data['current_page'] = $page_number;
+      $data['index'] = "product";
+
+      //get product
+      $data['product'] = $product->get_All($limit, $offset);
+
+      //load view
+
+      $this->view("admin/partials/_header", $data);
+      $this->view("admin/pages/product/list", $data);
+      $this->view("admin/partials/_footer", $data);
+    } elseif (isset($_GET['action'])) {
+      $data['index'] = $_GET['action'];
+      $data['category'] = $category->get_All();
+      $data['brand'] = $brand->get_All();
+      //add
+      if ($_GET['action'] == "add") {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+          $product->insert($_POST, $_FILES);
+        }
+      }
+      //edit
+      elseif ($_GET['action'] == "edit" && isset($_GET['id'])) {
+        $data['row'] = $product->get_By_Id($_GET['id']);
+
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+          $product->update($_POST, $_FILES);
+          header("Location: " . ROOT . "admin/product");
+        }
+      }
+
+      //load view
+      $this->view("admin/partials/_header", $data);
+      $this->view("admin/pages/product/add", $data);
+      $this->view("admin/partials/_footer", $data);
+    }
   }
 
   function mix()
@@ -219,6 +251,7 @@ class Admin extends Controller
       $this->view("admin/partials/_footer", $data);
     }
   }
+
   function brand()
   {
     $data['page_title'] = "quản lý thương hiệu";
@@ -263,7 +296,6 @@ class Admin extends Controller
     }
   }
 
-
   function order()
   {
     $order = $this->load_model('order');
@@ -282,6 +314,7 @@ class Admin extends Controller
     //load view
     $data['page_title'] = "quản lý đơn hàng";
     $this->view("admin/partials/_header", $data);
+    // $this->view("admin/pages/order/edit", $data);
     $this->view("admin/pages/order/list", $data);
     $this->view("admin/partials/_footer", $data);
   }

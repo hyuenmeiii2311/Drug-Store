@@ -70,4 +70,63 @@ class Product
         $db = new Database();
         return $db->read("SELECT * FROM product ORDER BY name DESC;");
     }
+    function insert($POST,$FILES)
+    {
+        // show($POST);
+        $db = new Database();
+        $data = array();
+
+        $data['name'] = trim($POST['name']);
+        $data['name'] = trim($POST['name']);
+        $data['weight'] = trim($POST['weight']);
+        $data['unit'] = trim($POST['unit']);
+        $data['price'] = trim($POST['price']);
+        $data['quantity'] = trim($POST['quantity']);
+        $data['category_id'] = trim($POST['category_id']);
+        $data['brand_id'] = trim($POST['brand_id']);
+        $data['description'] = trim($POST['description']);
+        $data['image'] = trim($FILES['fileToUpload']['name']);
+
+        $db = new Database();
+        $query = "INSERT INTO `product`( `name`, `weight`, `unit`, `image`, `price`, `quantity`, `description`, `category_id`, `brand_id`)
+         VALUES ('" . $data['name'] . "','".$data['weight']."','".$data['unit']."','".$data['image']."','".$data['price']."','".$data['quantity']."','".$data['description']."','".$data['category_id']."','".$data['brand_id']."')";
+        $result = $db->write($query);
+
+        if ($result) {
+            header("Location:" . ROOT . "admin/product");
+            die;
+        }
+    }
+    function get_By_Id($id){
+        $id = (int)$id;
+        $db = new Database();
+        $result = $db->read("SELECT * FROM product WHERE id = $id");
+        return $result[0];
+    }
+    function update($POST,$FILES){
+        $data = array();
+
+        $data['id'] = trim($POST['product_id']);
+        $data['name'] = trim($POST['name']);
+        $data['weight'] = trim($POST['weight']);
+        $data['unit'] = trim($POST['unit']);
+        $data['price'] = trim($POST['price']);
+        $data['quantity'] = trim($POST['quantity']);
+        $data['category_id'] = trim($POST['category_id']);
+        $data['brand_id'] = trim($POST['brand_id']);
+        $data['description'] = trim($POST['description']);
+        $data['image'] = trim($FILES['fileToUpload']['name']);
+        $data['old_image'] = trim($POST['old_image']);
+        $data['test'] = $FILES;
+
+        if($data['image'] == ''){
+            $data['new_image'] =  $data['old_image'] ;
+        }
+        else{
+            $data['new_image'] =  $data['image'] ;
+        }
+        
+        $db = new Database();
+        return  $db->write("UPDATE `product` SET `name`='".$data['name']."',`weight`='".$data['weight']."',`unit`='".$data['unit']."',`image`='".$data['new_image']."',`price`='".$data['price']."',`quantity`='".$data['quantity']."',`description`='".$data['description']."',`category_id`='".$data['category_id']."',`brand_id`='".$data['brand_id']."' WHERE `id`='".$data['id']."'");
+    }
 }
