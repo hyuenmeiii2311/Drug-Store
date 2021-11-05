@@ -64,7 +64,7 @@
   <div class="container">
     <div class="row">
       <div class="title-section text-center col-12">
-        <h2 class="text-uppercase">Popular Products</h2>
+        <h2 class="text-uppercase">New Products</h2>
       </div>
     </div>
 
@@ -73,7 +73,7 @@
       <div class="col-sm-6 col-lg-4 text-center item mb-4">
         <span class="tag">New</span>
         <a href="<?=ROOT?>detail/<?= $item->id?>"> <img src="<?= ASSETS ."images/". $item->image;?>" alt="Image" height="350" width="300"></a>
-        <h3 class="text-dark"><a href="<?=ROOT?>detail">Bioderma</a></h3>
+        <p style="font-family: 'Raleway', sans-serif;" class="text-dark"><a style="color: black;" href="<?=ROOT?>detail"><?=$item->name?></a></p>
         <p class="price"> <?= number_format($item->price); ?> vnđ</p>
       </div>
     <?php endforeach; ?>

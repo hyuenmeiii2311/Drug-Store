@@ -3,7 +3,7 @@ class Shop extends Controller
 {
     function index($type ='',$id ='')
     {
-        //get all Product Mix + Categories + Brand
+        //get models: Product Mix + Categories + Brand
         $list= $this->load_model('ProductMix');
         $data['product_mix']= $list->get_All();
         $cate = $this->load_model('Category');
@@ -44,8 +44,6 @@ class Shop extends Controller
                     break;
                 case "subcategory":
                     $products = $product->get_By_CategoryId($id,$limit,$offset);
-                    break;
-                case "name_a":
                     break;
             }
         }
