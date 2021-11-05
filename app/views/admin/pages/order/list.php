@@ -22,6 +22,7 @@
                                         <th>Điện thoại</th>
                                         <th>Ghi chú</th>
                                         <th>Tổng tiền</th>
+                                        <th>Tình trạng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,8 +37,20 @@
                                                 <td><?= $item->note ?></td>
                                                 <td><?= $item->total ?></td>
                                                 <td>
-                                                    <i class="mdi mdi-table-edit"></i>Edit |
-                                                    <i class="mdi mdi-delete"></i>Delete
+                                                    <?php if ($item->status == 0) : ?>
+                                                        <label class="badge badge-warning">Chưa giao</label>
+                                                    <?php else : ?>
+                                                        <label class="badge badge-success">Đã giao</label>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>
+                                                    <a style="color: black;" href="<?= ROOT . "admin/order?action=edit&id=" . $item->id ?>">
+                                                        <i class="mdi mdi-table-edit"></i>Edit
+                                                    </a> |
+                                                    <a style="color: black;" href="<?= ROOT . "admin/order?action=delete&id=" . $item->id ?>">
+                                                        <i class="mdi mdi-delete"></i>Delete
+                                                    </a>
+
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

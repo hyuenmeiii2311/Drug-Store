@@ -45,22 +45,27 @@ class Admin extends Controller
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/user/list", $data);
       $this->view("admin/partials/_footer", $data);
-    } elseif (isset($_GET['action']) && $_GET['action'] == "edit" && isset($_GET['id'])) {
+    } elseif (isset($_GET['action'])) {
       $data['row'] = $user->get_By_Id($_GET['id']);
-      // echo "<br><br><br>";show($data['row']);
-
-      if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        // echo "<br><br><br>";show($_POST);
-        $result = $user->update($_POST);
-        if ($result) {
-          header("Location: " . ROOT . "admin/user");
+      $data['index'] = $_GET['action'];
+      if ($_GET['action'] == "edit" && isset($_GET['id'])) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+          $result = $user->update($_POST);
+          if ($result) {
+            header("Location: " . ROOT . "admin/user");
+          }
         }
-      }
 
-      //load view
-      $this->view("admin/partials/_header", $data);
-      $this->view("admin/pages/user/edit", $data);
-      $this->view("admin/partials/_footer", $data);
+        //load view
+        $this->view("admin/partials/_header", $data);
+        $this->view("admin/pages/user/edit", $data);
+        $this->view("admin/partials/_footer", $data);
+      } elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $result = $user->delete($id);
+
+        return header("Location: " . ROOT . "admin/user");
+      }
     }
   }
 
@@ -105,6 +110,12 @@ class Admin extends Controller
           header("Location: " . ROOT . "admin/category");
         }
       }
+      //delete
+      elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $category->delete($id);
+        return header("Location: " . ROOT . "admin/category");
+      }
 
       //load view
       $this->view("admin/partials/_header", $data);
@@ -148,6 +159,11 @@ class Admin extends Controller
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/contact/edit", $data);
       $this->view("admin/partials/_footer", $data);
+    }
+    elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
+      $id = $_GET['id'];
+      $result = $contact->delete($id);
+      return header("Location: " . ROOT . "admin/contact");
     }
   }
   function product()
@@ -197,6 +213,12 @@ class Admin extends Controller
           header("Location: " . ROOT . "admin/product");
         }
       }
+       //delete
+       elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $product->delete($id);
+        return header("Location: " . ROOT . "admin/product");
+      }
 
       //load view
       $this->view("admin/partials/_header", $data);
@@ -244,6 +266,12 @@ class Admin extends Controller
           header("Location: " . ROOT . "admin/mix");
         }
       }
+      //delete
+      elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $product_mix->delete($id);
+        return header("Location: " . ROOT . "admin/mix");
+      }
 
       //load view
       $this->view("admin/partials/_header", $data);
@@ -276,17 +304,26 @@ class Admin extends Controller
       $this->view("admin/partials/_footer", $data);
     } elseif (isset($_GET['action'])) {
       $data['index'] = $_GET['action'];
+      //add
       if ($_GET['action'] == "add") {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
           $brand->insert($_POST);
         }
-      } elseif ($_GET['action'] == "edit" && isset($_GET['id'])) {
+      } 
+      //edit
+      elseif ($_GET['action'] == "edit" && isset($_GET['id'])) {
         $data['row'] = $brand->get_By_Id($_GET['id']);
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
           $brand->update($_POST);
           header("Location: " . ROOT . "admin/brand");
         }
+      }
+      //delete
+      elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $brand->delete($id);
+        return header("Location: " . ROOT . "admin/brand");
       }
 
       //load view
@@ -299,23 +336,46 @@ class Admin extends Controller
   function order()
   {
     $order = $this->load_model('order');
-    //pagination
-    $limit = 5;
-    $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
-    $page_number = ($page_number < 1) ? 1 : $page_number;
-    $offset = ($page_number - 1) * $limit; //start
-    $total_records = $order->count_Records();
-    $data['total_page'] = ceil($total_records / $limit);
-    $data['current_page'] = $page_number;
-    $data['index'] = "order";
-
-    $data['order'] = $order->get_Data($limit, $offset);
-
-    //load view
     $data['page_title'] = "quản lý đơn hàng";
-    $this->view("admin/partials/_header", $data);
-    // $this->view("admin/pages/order/edit", $data);
-    $this->view("admin/pages/order/list", $data);
-    $this->view("admin/partials/_footer", $data);
+
+    if (!isset($_GET['action'])) {
+      //pagination
+      $limit = 5;
+      $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1; //current_page
+      $page_number = ($page_number < 1) ? 1 : $page_number;
+      $offset = ($page_number - 1) * $limit; //start
+      $total_records = $order->count_Records();
+      $data['total_page'] = ceil($total_records / $limit);
+      $data['current_page'] = $page_number;
+      $data['index'] = "order";
+
+      $data['order'] = $order->get_Data($limit, $offset);
+
+      //load view
+
+      $this->view("admin/partials/_header", $data);
+      $this->view("admin/pages/order/list", $data);
+      $this->view("admin/partials/_footer", $data);
+    } 
+    elseif (isset($_GET['action']) && $_GET['action'] == "edit" && isset($_GET['id'])) {
+      $data['row'] = $order->get_By_Id($_GET['id']);
+      $data['detail'] = $order->getDetail_By_Id($_GET['id']);
+      if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $result = $order->update($_POST);
+        if ($result) {
+          header("Location: " . ROOT . "admin/order");
+        }
+      }
+
+      //load view
+      $this->view("admin/partials/_header", $data);
+      $this->view("admin/pages/order/edit", $data);
+      $this->view("admin/partials/_footer", $data);
+    }
+    elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
+      $id = $_GET['id'];
+      $result = $order->delete($id);
+      return header("Location: " . ROOT . "admin/order");
+    }
   }
 }

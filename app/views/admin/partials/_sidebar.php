@@ -48,8 +48,7 @@
       <div class="collapse" id="order">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="<?= ROOT ?>admin/order">Xem</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">Thêm</a></li>
-
+          <li class="nav-item"> <a class="nav-link" href="<?= ROOT ?>admin/order?action=add">Thêm</a></li>
         </ul>
       </div>
     </li>

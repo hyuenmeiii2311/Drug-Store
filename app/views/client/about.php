@@ -121,10 +121,10 @@
                   <h3 class="block-38-heading h4" id="font-unicode">Lê Huyền Mai</h3>
                   <p class="block-38-subheading">Leader</p>
                 </div>
-                <div class="block-38-body">
+                <!-- <div class="block-38-body">
                   <p id="font-unicode">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae aut minima nihil sit distinctio
                     recusandae doloribus ut fugit officia voluptate soluta. </p>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -136,10 +136,10 @@
                   <h3 class="block-38-heading h4" id="font-unicode">Nguyễn Hà Phương</h3>
                   <p class="block-38-subheading">Member</p>
                 </div>
-                <div class="block-38-body">
+                <!-- <div class="block-38-body">
                   <p id="font-unicode">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae aut minima nihil sit distinctio
                     recusandae doloribus ut fugit officia voluptate soluta. </p>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -151,10 +151,10 @@
                   <h3 class="block-38-heading h4" id="font-unicode">Bùi Công Thư</h3>
                   <p class="block-38-subheading">Member</p>
                 </div>
-                <div class="block-38-body">
+                <!-- <div class="block-38-body">
                   <p id="font-unicode">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae aut minima nihil sit distinctio
                     recusandae doloribus ut fugit officia voluptate soluta. </p>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

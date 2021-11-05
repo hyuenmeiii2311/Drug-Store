@@ -129,4 +129,9 @@ class Product
         $db = new Database();
         return  $db->write("UPDATE `product` SET `name`='".$data['name']."',`weight`='".$data['weight']."',`unit`='".$data['unit']."',`image`='".$data['new_image']."',`price`='".$data['price']."',`quantity`='".$data['quantity']."',`description`='".$data['description']."',`category_id`='".$data['category_id']."',`brand_id`='".$data['brand_id']."' WHERE `id`='".$data['id']."'");
     }
+    function delete($id){
+        $id = (int) $id;
+        $db = new Database();
+        return  $db->write("DELETE FROM `product` WHERE `id`='$id'");
+    }
 }

@@ -3,7 +3,6 @@ class Home extends Controller
 {
     function index()
     {
-        //get popular products
 
         //get new products
         $db = new Database();

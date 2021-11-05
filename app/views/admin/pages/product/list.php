@@ -34,7 +34,10 @@
                                                     <a style="color: black;" href="<?= ROOT . "admin/product?action=edit&id=" . $item->id ?>">
                                                         <i class="mdi mdi-table-edit"></i>Edit
                                                     </a> |
-                                                    <i class="mdi mdi-delete"></i>Delete
+                                                    <a style="color: black;" href="<?= ROOT . "admin/product?action=delete&id=" . $item->id ?>">
+                                                        <i class="mdi mdi-delete"></i>Delete
+                                                    </a>
+
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

@@ -33,4 +33,9 @@ class Contact
         $db = new Database();
         return  $db->write("UPDATE `contact` SET `status`='".$data['status']."' WHERE `id`='".$data['contact_id']."'");
     }
+    function delete($id){
+        $id = (int) $id;
+        $db = new Database();
+        return  $db->write("DELETE FROM `contact` WHERE `id`='$id'");
+    }
 }

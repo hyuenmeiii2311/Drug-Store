@@ -32,7 +32,9 @@
                                                     <a style="color: black;" href="<?= ROOT . "admin/user?action=edit&id=" . $item->id ?>">
                                                         <i class="mdi mdi-table-edit"></i>Edit
                                                     </a> |
-                                                    <i class="mdi mdi-delete"></i>Delete
+                                                    <a style="color: black;" href="<?= ROOT . "admin/user?action=delete&id=" . $item->id ?>">
+                                                        <i class="mdi mdi-delete"></i>Delete
+                                                    </a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -47,7 +49,7 @@
                         <!--Pagination -->
                         <?php require './app/views/admin/partials/_pagination.php' ?>
                         <!--//Pagination -->
-                    </div>    
+                    </div>
                 </div>
             </div>
         </div>

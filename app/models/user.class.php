@@ -208,4 +208,22 @@ class User
         $db = new Database();
         return  $db->write($query);
     }
+    function delete($id){
+        $id = (int) $id;
+        $db = new Database();
+        
+        $order_id = $db->read("SELECT `id` FROM `order` WHERE `customer_id` = $id;");
+        $result = $order_id[0]->id;
+        $orderdetail_id = $db->read("SELECT `id` FROM `order_detail` WHERE `order_id` = $result;");
+        
+        $detail_ids = array();
+        $detail_ids = array_column($orderdetail_id,'id');
+        $ids_str = "'" .implode("','",$detail_ids) . "'";
+
+        $db->write("DELETE FROM `order_detail` WHERE `id` IN ($ids_str)");
+        $db->write("DELETE FROM `order` WHERE `id` IN ($result)");
+        $db->write("DELETE FROM `contact` WHERE user_id = $id");
+
+        return  $db->write("DELETE FROM `user` WHERE `id`= $id;");
+    }
 }

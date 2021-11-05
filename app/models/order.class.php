@@ -31,10 +31,9 @@ class Order
         }
         $data['total'] = $total;
 
-        $query = "INSERT INTO `order`(`customer_id`, `created_date`, `delivery_name`, `delivery_address`, `delivery_phone`, `note`, `total`) 
-        VALUES ('" . $data['customer_id'] . "','" . $data['created_date'] . "','" . $data['delivery_name'] . "','" . $data['delivery_address'] . "','" . $data['delivery_phone'] . "','" . $data['note'] . "','" . $data['total'] . "')";
+        $query = "INSERT INTO `order`(`customer_id`, `created_date`, `delivery_name`, `delivery_address`, `delivery_phone`, `note`, `total`, `status`) 
+        VALUES ('" . $data['customer_id'] . "','" . $data['created_date'] . "','" . $data['delivery_name'] . "','" . $data['delivery_address'] . "','" . $data['delivery_phone'] . "','" . $data['note'] . "','" . $data['total'] . "','0')";
         $result = $db->write($query);
-
 
 
         //save order details
@@ -62,5 +61,41 @@ class Order
         $db = new Database();
         $result = $db->read("SELECT COUNT(*) AS total FROM order;");
         return $result[0]->total;
+    }
+    function delete($id){
+        $id = (int) $id;
+        $db = new Database();
+
+        $orderdetail_id = $db->read("SELECT `id` FROM `order_detail` WHERE `order_id` = $id;");
+        $detail_ids = array();
+        $detail_ids = array_column($orderdetail_id,'id');
+        $ids_str = "'" .implode("','",$detail_ids) . "'";
+
+        $db->write("DELETE FROM `order_detail` WHERE `id` IN ($ids_str)");
+        return  $db->write("DELETE FROM `order` WHERE `id`='$id'");
+    }
+    function delete_detail($id){
+        $id = (int) $id;
+        $db = new Database();
+        return  $db->write("DELETE FROM `order_detail` WHERE `id`='$id'");
+    }
+    function get_By_Id($id){
+        $id = (int)$id;
+        $db = new Database();
+        $result = $db->read("SELECT * FROM `order` WHERE id = $id");
+        return $result[0];
+    }
+    function getDetail_By_Id($id){
+        $id = (int)$id;
+        $db = new Database();
+        $result = $db->read("SELECT * FROM order_detail WHERE order_id = $id");
+        return $result;
+    }
+    function update($POST){
+        $data = array();
+
+        $data['name'] = trim($POST['name']);
+        $db = new Database();
+        return  $db->write("UPDATE `order` SET `customer_id`='[value-2]',`created_date`='[value-3]',`delivery_name`='[value-4]',`delivery_address`='[value-5]',`delivery_phone`='[value-6]',`note`='[value-7]',`total`='[value-8]',`status`='[value-9]' WHERE `id`='[value-1]'");
     }
 }

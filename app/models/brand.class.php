@@ -50,4 +50,9 @@ class Brand
         $db = new Database();
         return  $db->write("UPDATE `brand` SET `name`='".$data['name']."' WHERE `id`='".$data['brand_id']."';");
     }
+    function delete($id){
+        $id = (int) $id;
+        $db = new Database();
+        return  $db->write("DELETE FROM `brand` WHERE `id`='$id'");
+    }
 }

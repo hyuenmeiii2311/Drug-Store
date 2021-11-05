@@ -60,4 +60,9 @@ class Category
         $db = new Database();
         return  $db->write("UPDATE `category` SET `name`='".$data['name']."',`product_mix_id`='".$data['mix_id']."' WHERE `id`='".$data['cate_id']."'");
     }
+    function delete($id){
+        $id = (int) $id;
+        $db = new Database();
+        return  $db->write("DELETE FROM `category` WHERE `id`='$id'");
+    }
 }

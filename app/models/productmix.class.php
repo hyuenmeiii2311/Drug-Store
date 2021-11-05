@@ -50,4 +50,17 @@ class ProductMix
         $db = new Database();
         return  $db->write("UPDATE `product_mix` SET `name`='".$data['product_mix']."' WHERE `id`='".$data['product_mix_id']."';");
     }
+    function delete($id){
+        $id = (int) $id;
+        $db = new Database();
+        
+        $result = $db->read("SELECT `id` FROM `category` WHERE `product_mix_id` = $id;");
+        $detail_ids = array();
+        $detail_ids = array_column($result,'id');
+        $ids_str = "'" .implode("','",$detail_ids) . "'";
+        $db->write("UPDATE `category` SET `product_mix_id` = ' ' WHERE `id` IN ($ids_str)");
+        $db->write("UPDATE `product` SET `category_id` = ' ' WHERE `category_id` = $id");
+
+        return  $db->write("DELETE FROM `product_mix` WHERE `id`='$id'");
+    }
 }

@@ -12,7 +12,7 @@
             <div class="col-md-12" style="margin-top:-20px;">
                 <p>Returning customer? <a href="<?=ROOT?>login">Click here</a> to login</p>
 
-                <form method="post" name="SignUp" onsubmit="return validate(event)">
+                <form method="post" name="SignUp" onsubmit="return validate()">
 
                     <div class="p-3 p-lg-5 border">
                         <div class="form-group row">
@@ -130,8 +130,8 @@
 
 <!-- Javascript -->
 <script>
-    function validate(event) {
-        event.preventDefault();
+    function validate() {
+        // event.preventDefault();
         //check name
         var name = document.forms["SignUp"]["fullname"].value;
         if (name == "") {

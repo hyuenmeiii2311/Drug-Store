@@ -58,7 +58,8 @@
   </div>
 </div>
 
-<!-- Popular Products-->
+<!-- New Products-->
+<?php if (isset($data['new_products'])) {?>
 <div class="site-section">
   <div class="container">
     <div class="row">
@@ -68,40 +69,15 @@
     </div>
 
     <div class="row">
+    <?php foreach ($data['new_products'] as $item) :?>
       <div class="col-sm-6 col-lg-4 text-center item mb-4">
-        <span class="tag">Sale</span>
-        <a href="<?=ROOT?>detail"> <img src="<?= ASSETS ?>images/product_01.png" alt="Image"></a>
+        <span class="tag">New</span>
+        <a href="<?=ROOT?>detail/<?= $item->id?>"> <img src="<?= ASSETS ."images/". $item->image;?>" alt="Image" height="350" width="300"></a>
         <h3 class="text-dark"><a href="<?=ROOT?>detail">Bioderma</a></h3>
-        <p class="price"><del>95.00</del> &mdash; $55.00</p>
+        <p class="price"> <?= number_format($item->price); ?> vnđ</p>
       </div>
-      <div class="col-sm-6 col-lg-4 text-center item mb-4">
-        <a href="<?=ROOT?>detail"> <img src="<?= ASSETS ?>images/product_02.png" alt="Image"></a>
-        <h3 class="text-dark"><a href="detail">Chanca Piedra</a></h3>
-        <p class="price">$70.00</p>
-      </div>
-      <div class="col-sm-6 col-lg-4 text-center item mb-4">
-        <a href="<?=ROOT?>detail"> <img src="<?= ASSETS ?>images/product_03.png" alt="Image"></a>
-        <h3 class="text-dark"><a href="<?=ROOT?>detail">Umcka Cold Care</a></h3>
-        <p class="price">$120.00</p>
-      </div>
+    <?php endforeach; ?>
 
-      <div class="col-sm-6 col-lg-4 text-center item mb-4">
-
-        <a href="<?=ROOT?>detail"> <img src="<?= ASSETS ?>images/product_04.png" alt="Image"></a>
-        <h3 class="text-dark"><a href="<?=ROOT?>detail">Cetyl Pure</a></h3>
-        <p class="price"><del>45.00</del> &mdash; $20.00</p>
-      </div>
-      <div class="col-sm-6 col-lg-4 text-center item mb-4">
-        <a href="<?=ROOT?>detail"> <img src="<?= ASSETS ?>images/product_05.png" alt="Image"></a>
-        <h3 class="text-dark"><a href="<?=ROOT?>detail">CLA Core</a></h3>
-        <p class="price">$38.00</p>
-      </div>
-      <div class="col-sm-6 col-lg-4 text-center item mb-4">
-        <span class="tag">Sale</span>
-        <a href="<?=ROOT?>detail"> <img src="<?= ASSETS ?>images/product_06.png" alt="Image"></a>
-        <h3 class="text-dark"><a href="<?=ROOT?>detail">Poo Pourri</a></h3>
-        <p class="price"><del>$89</del> &mdash; $38.00</p>
-      </div>
     </div>
     <div class="row mt-5">
       <div class="col-12 text-center">
@@ -110,35 +86,9 @@
     </div>
   </div>
 </div>
-<!-- Popular Products-->
-
-<!--New products-->
-<?php if (isset($data['new_products'])) {?>
-<div class="site-section bg-light">
-  <div class="container">
-    <div class="row">
-      <div class="title-section text-center col-12">
-        <h2 class="text-uppercase">New products</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 block-3 products-wrap">
-        <div class="nonloop-block-3 owl-carousel">
-
-        <?php foreach ($data['new_products'] as $item) :?>
-          <div class="text-center item mb-4">
-            <a href="<?=ROOT?>detail/<?= $item->id?>"> <img src="<?= ASSETS ."images/". $item->image;?>" alt="Related Product's Image" class="img-related"></a>
-            <p class="product-name"><a href="<?=ROOT?>detail/<?= $item->id?>" style="color: black;"><?= $item->name; ?></a></p>
-          </div>
-        <?php endforeach; ?>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <?php } ?> <!--endif-->
-<!--New products-->
+<!-- New Products-->
+
 
 
 <div class="site-section bg-secondary bg-image" style="background-image: url('<?= ASSETS ?>images/bg_2.jpg');">
