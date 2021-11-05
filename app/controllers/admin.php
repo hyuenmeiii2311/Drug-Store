@@ -18,6 +18,15 @@ class Admin extends Controller
   //home
   function home()
   {
+    $product = $this->load_model('product');
+    $data['total_products'] = $product->count_Records();
+    $user = $this->load_model('user');
+    $data['total_users'] = $user->count_Records();
+    $order = $this->load_model('order');
+    $data['total_orders'] = $order->count_Records();
+    $brand = $this->load_model('brand');
+    $data['total_brands'] = $brand->count_Records();
+
     $data['page_title'] = "Admin";
 
     $this->view("admin/partials/_header", $data);
