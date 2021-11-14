@@ -29,7 +29,6 @@ class Shop extends Controller
         }
 
         //get products
-        $db = new Database();
         if ($search) {
             $data['keyword'] = $keyword;
             $products = $product->search($data['keyword'],$limit,$offset);

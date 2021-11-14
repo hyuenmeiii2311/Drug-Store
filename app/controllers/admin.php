@@ -194,14 +194,26 @@ class Admin extends Controller
       $data['current_page'] = $page_number;
       $data['index'] = "product";
 
+      //check if it's a search
+      $search = false;
+      if (isset($_GET['keyword'])) {
+          $keyword = addslashes($_GET['keyword']);
+          $search = true;
+      }
+
       //get product
-      $data['product'] = $product->get_All($limit, $offset);
+      if ($search) {
+          $data['keyword'] = $keyword;
+          $data['product'] = $product->search($data['keyword'],$limit,$offset);
+      }else{
+        $data['product'] = $product->get_All($limit, $offset);
+      } 
 
       //load view
-
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/product/list", $data);
       $this->view("admin/partials/_footer", $data);
+
     } elseif (isset($_GET['action'])) {
       $data['index'] = $_GET['action'];
       $data['category'] = $category->get_All();

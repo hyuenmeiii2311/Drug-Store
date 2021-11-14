@@ -7,6 +7,7 @@
     <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
       <span class="icon-menu"></span>
     </button>
+    <!--Search-->
     <ul class="navbar-nav mr-lg-2">
       <li class="nav-item nav-search d-none d-lg-block">
         <div class="input-group">
@@ -15,10 +16,13 @@
               <i class="icon-search"></i>
             </span>
           </div>
-          <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+          <form method="GET">
+            <input type="text" name="keyword" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+          </form>
         </div>
       </li>
     </ul>
+    <!--//Search-->
     <ul class="navbar-nav navbar-nav-right">
       <li class="nav-item">
         <?php
