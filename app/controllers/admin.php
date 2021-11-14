@@ -375,7 +375,6 @@ class Admin extends Controller
           header("Location: " . ROOT . "admin/order");
         }
       }
-
       //load view
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/order/edit", $data);

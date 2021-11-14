@@ -71,7 +71,7 @@ class Order
         $detail_ids = array_column($orderdetail_id,'id');
         $ids_str = "'" .implode("','",$detail_ids) . "'";
 
-        $db->write("DELETE FROM `order_detail` WHERE `id` IN ($ids_str)");
+        $db->write("DELETE FROM `order_detail` WHERE `order_id` IN ($ids_str)");
         return  $db->write("DELETE FROM `order` WHERE `id`='$id'");
     }
     function delete_detail($id){
@@ -88,14 +88,15 @@ class Order
     function getDetail_By_Id($id){
         $id = (int)$id;
         $db = new Database();
-        $result = $db->read("SELECT * FROM order_detail WHERE order_id = $id");
+        $result = $db->read("SELECT `order_detail`.`id`, `order_detail`.`order_id`, `order_detail`.`product_id`, `order_detail`.`quantity` as qty, `product`.`name`,`product`.`image`,`product`.`price` FROM `order_detail` INNER JOIN `product` on order_detail.product_id = product.id WHERE order_detail.order_id =$id;");
         return $result;
     }
     function update($POST){
         $data = array();
 
-        $data['name'] = trim($POST['name']);
+        $data['status'] = trim($POST['status']);
+        $data['order_id'] = trim($POST['order_id']);
         $db = new Database();
-        return  $db->write("UPDATE `order` SET `customer_id`='[value-2]',`created_date`='[value-3]',`delivery_name`='[value-4]',`delivery_address`='[value-5]',`delivery_phone`='[value-6]',`note`='[value-7]',`total`='[value-8]',`status`='[value-9]' WHERE `id`='[value-1]'");
+        return  $db->write("UPDATE `order` SET `status`='".$data['status']."' WHERE `id`='".$data['order_id']."'");
     }
 }
