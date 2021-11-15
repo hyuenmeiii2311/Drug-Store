@@ -82,83 +82,61 @@
             <div class="col-12 col-xl-4" style="float: right;">
               <div class="justify-content-end d-flex">
                 <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
-                  <input type="date" value="<?php echo date('Y-m-d'); ?>" class="btn btn-sm btn-light bg-white ">
-
+                  <form method="POST">
+                    <input type="date" name="date_report" value="<?php echo isset($_POST['date_report']) ? $_POST['date_report'] : ''  ?>" class="btn btn-sm btn-light bg-white ">
+                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                  </form>
                   </input>
                 </div>
               </div>
             </div>
-            <p class="font-weight-500">Tổng doanh thu của tháng :</p>
+            <p class="font-weight-500">Tổng doanh thu của tháng: <?= $data['total_report'] ?></p>
             <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>
-                            User
-                          </th>
-                          <th>
-                            First name
-                          </th>
-                          <th>
-                            Progress
-                          </th>
-                          <th>
-                            Amount
-                          </th>
-                          <th>
-                            Deadline
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="py-1">
-                            <img src="../../images/faces/face1.jpg" alt="image"/>
-                          </td>
-                          <td>
-                            Herman Beck
-                          </td>
-                          <td>
-                            <div class="progress">
-                              <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td>
-                            $ 77.99
-                          </td>
-                          <td>
-                            May 15, 2015
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="py-1">
-                            <img src="../../images/faces/face2.jpg" alt="image"/>
-                          </td>
-                          <td>
-                            Messsy Adam
-                          </td>
-                          <td>
-                            <div class="progress">
-                              <div class="progress-bar bg-danger" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td>
-                            $245.30
-                          </td>
-                          <td>
-                            July 1, 2015
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>
+                      Mã đơn hàng
+                    </th>
+                    <th>
+                      Ngày đặt
+                    </th>
+                    <th>
+                      Khách hàng
+                    </th>
+                    <th>
+                      Địa chỉ
+                    </th>
+                    <th>
+                      Tổng đơn
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php if (isset($data['detail_report']) && is_array($data['detail_report'])) : ?>
+                    <?php foreach ($data['detail_report'] as $item) : ?>
+                      <tr>
+                        <td><?= $item->id ?></td>
+                        <td><?= $item->created_date ?></td>
+                        <td><?= $item->delivery_name ?></td>
+                        <td><?= $item->delivery_address ?></td>
+                        <td><?= $item->total ?></td>
+                      </tr>
+                    <?php endforeach; ?>
+                  <?php else : ?>
+                    <td colspan="8">
+                      <p style="text-align:center;">No data available in table</p>
+                    </td>
+                  <?php endif; ?>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
 
     </div>
-    
+
   </div>
   <!-- content-wrapper ends -->
 </div>

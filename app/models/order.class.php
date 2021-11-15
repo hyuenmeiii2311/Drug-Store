@@ -4,7 +4,6 @@ class Order
     function get_All()
     {
         $db = new Database();
-
         return $db->read("SELECT * FROM `order` ");
     }
     function get_Data($limit = 0, $offset = 0)
@@ -62,6 +61,7 @@ class Order
         $result = $db->read("SELECT COUNT(*) AS total FROM `order`;");
         return $result[0]->total;
     }
+
     function delete($id){
         $id = (int) $id;
         $db = new Database();
@@ -74,23 +74,21 @@ class Order
         $db->write("DELETE FROM `order_detail` WHERE `order_id` IN ($ids_str)");
         return  $db->write("DELETE FROM `order` WHERE `id`='$id'");
     }
-    function delete_detail($id){
-        $id = (int) $id;
-        $db = new Database();
-        return  $db->write("DELETE FROM `order_detail` WHERE `id`='$id'");
-    }
+
     function get_By_Id($id){
         $id = (int)$id;
         $db = new Database();
         $result = $db->read("SELECT * FROM `order` WHERE id = $id");
         return $result[0];
     }
+
     function getDetail_By_Id($id){
         $id = (int)$id;
         $db = new Database();
         $result = $db->read("SELECT `order_detail`.`id`, `order_detail`.`order_id`, `order_detail`.`product_id`, `order_detail`.`quantity` as qty, `product`.`name`,`product`.`image`,`product`.`price` FROM `order_detail` INNER JOIN `product` on order_detail.product_id = product.id WHERE order_detail.order_id =$id;");
         return $result;
     }
+
     function update($POST){
         $data = array();
 
@@ -98,5 +96,15 @@ class Order
         $data['order_id'] = trim($POST['order_id']);
         $db = new Database();
         return  $db->write("UPDATE `order` SET `status`='".$data['status']."' WHERE `id`='".$data['order_id']."'");
+    }
+    function calculate_report($date){
+        $db = new Database();
+        $result = $db->read("SELECT SUM(total) as total FROM `order` WHERE MONTH(created_date) = MONTH('$date') AND YEAR(created_date) = YEAR('$date');");
+        return $result[0]->total;
+    }
+    function detail_report($date){
+        $db = new Database();
+        $result = $db-> read("SELECT * FROM `order` WHERE MONTH(created_date) = MONTH('$date') AND YEAR(created_date) = YEAR('$date');");
+        return $result;
     }
 }

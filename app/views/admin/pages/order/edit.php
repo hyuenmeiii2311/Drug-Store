@@ -14,7 +14,7 @@
                                 <div class="template-demo">
                                     <p>Mã đơn hàng: <?= $data['row']->id ?></p>
                                     <p>Mã khách hàng: <?= $data['row']->customer_id ?></p>
-                                    <p>Ngày tạo: <?= $data['row']->created_date ?></p>
+                                    <p>Ngày đặt: <?= $data['row']->created_date ?></p>
                                     <p>Người nhận: <?= $data['row']->delivery_name ?></p>
                                     <p>Địa chỉ: <?= $data['row']->delivery_address ?></p>
                                     <?php if ($data['row']->note != '') : ?>
