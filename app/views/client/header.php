@@ -54,9 +54,8 @@
           <div class="main-nav d-none d-lg-block">
             <nav class="site-navigation text-right text-md-center" role="navigation">
               <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <li class="active"><a href="<?= ROOT ?>index">Home</a></li>
-                <li><a href="<?= ROOT ?>shop">Store</a></li>
-
+                <li <?=($data['page_title'] == "Home") ? 'class="active"': '' ?> ><a href="<?= ROOT ?>index">Home</a></li>
+                <li <?=($data['page_title'] == "Shop") ? 'class="active"': '' ?> ><a href="<?= ROOT ?>shop">Store</a></li>
                 <!--Product List-->
                 <li class="has-children">
                   <a href="#">Product List</a>
@@ -71,8 +70,8 @@
                 </li>
                 <!-- //Product List-->
 
-                <li><a href="<?= ROOT ?>about">About</a></li>
-                <li><a href="<?= ROOT ?>contact">Contact</a></li>
+                <li <?=($data['page_title'] == "About") ? 'class="active"': '' ?>><a href="<?= ROOT ?>about">About</a></li>
+                <li <?=($data['page_title'] == "Contact") ? 'class="active"': '' ?>><a href="<?= ROOT ?>contact">Contact</a></li>
                 <li style="font-family: 'Raleway', sans-serif;color:#224242">
                   <?php
                   if (isset($_SESSION['user']) && $_SESSION['user'] != "") {

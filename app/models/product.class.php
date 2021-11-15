@@ -1,15 +1,17 @@
 <?php
 class Product
 {
-    function get_All($limit , $offset)
+    function get_All($limit, $offset)
     {
         $db = new Database();
-
-            $limit = (int)$limit;
-            $offset = (int)$offset;
-            
-            return $db->read("SELECT * FROM product LIMIT " . $limit . " OFFSET " . $offset);
-
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+        return $db->read("SELECT * FROM product LIMIT " . $limit . " OFFSET " . $offset);
+    }
+    function get_Products_By_Id($ids_str)
+    {
+        $db = new Database();
+        return $db->read("select * from product where id in ($ids_str)");
     }
     function search($keyword, $limit, $offset)
     {
@@ -18,11 +20,11 @@ class Product
         FROM product INNER JOIN category on product.category_id = category.id
         WHERE product.name LIKE '%" . $keyword . "%' OR category.name LIKE '%" . $keyword . "%' LIMIT $limit OFFSET $offset ");
     }
-    function get_By_BrandId($id, $limit, $offset,$action='')
+    function get_By_BrandId($id, $limit, $offset, $action = '')
     {
         $id = (int)$id;
         $db = new Database();
-        $query ="SELECT * FROM product WHERE brand_id = '$id' LIMIT $limit OFFSET $offset ";
+        $query = "SELECT * FROM product WHERE brand_id = '$id' LIMIT $limit OFFSET $offset ";
         return $db->read($query);
     }
     function get_By_CategoryId($id, $limit, $offset)
@@ -46,7 +48,7 @@ class Product
         $result = $db->read("SELECT COUNT(*) AS total FROM product;");
         return $result[0]->total;
     }
-    function insert($POST,$FILES)
+    function insert($POST, $FILES)
     {
         // show($POST);
         $db = new Database();
@@ -65,7 +67,7 @@ class Product
 
         $db = new Database();
         $query = "INSERT INTO `product`( `name`, `weight`, `unit`, `image`, `price`, `quantity`, `description`, `category_id`, `brand_id`)
-         VALUES ('" . $data['name'] . "','".$data['weight']."','".$data['unit']."','".$data['image']."','".$data['price']."','".$data['quantity']."','".$data['description']."','".$data['category_id']."','".$data['brand_id']."')";
+         VALUES ('" . $data['name'] . "','" . $data['weight'] . "','" . $data['unit'] . "','" . $data['image'] . "','" . $data['price'] . "','" . $data['quantity'] . "','" . $data['description'] . "','" . $data['category_id'] . "','" . $data['brand_id'] . "')";
         $result = $db->write($query);
 
         if ($result) {
@@ -73,13 +75,15 @@ class Product
             die;
         }
     }
-    function get_By_Id($id){
+    function get_By_Id($id)
+    {
         $id = (int)$id;
         $db = new Database();
         $result = $db->read("SELECT * FROM product WHERE id = $id");
         return $result[0];
     }
-    function update($POST,$FILES){
+    function update($POST, $FILES)
+    {
         $data = array();
 
         $data['id'] = trim($POST['product_id']);
@@ -95,17 +99,17 @@ class Product
         $data['old_image'] = trim($POST['old_image']);
         $data['test'] = $FILES;
 
-        if($data['image'] == ''){
-            $data['new_image'] =  $data['old_image'] ;
+        if ($data['image'] == '') {
+            $data['new_image'] =  $data['old_image'];
+        } else {
+            $data['new_image'] =  $data['image'];
         }
-        else{
-            $data['new_image'] =  $data['image'] ;
-        }
-        
+
         $db = new Database();
-        return  $db->write("UPDATE `product` SET `name`='".$data['name']."',`weight`='".$data['weight']."',`unit`='".$data['unit']."',`image`='".$data['new_image']."',`price`='".$data['price']."',`quantity`='".$data['quantity']."',`description`='".$data['description']."',`category_id`='".$data['category_id']."',`brand_id`='".$data['brand_id']."' WHERE `id`='".$data['id']."'");
+        return  $db->write("UPDATE `product` SET `name`='" . $data['name'] . "',`weight`='" . $data['weight'] . "',`unit`='" . $data['unit'] . "',`image`='" . $data['new_image'] . "',`price`='" . $data['price'] . "',`quantity`='" . $data['quantity'] . "',`description`='" . $data['description'] . "',`category_id`='" . $data['category_id'] . "',`brand_id`='" . $data['brand_id'] . "' WHERE `id`='" . $data['id'] . "'");
     }
-    function delete($id){
+    function delete($id)
+    {
         $id = (int) $id;
         $db = new Database();
         return  $db->write("DELETE FROM `product` WHERE `id`='$id'");

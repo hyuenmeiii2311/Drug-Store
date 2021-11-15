@@ -49,7 +49,7 @@
                                                 <div class="input-group-prepend">
                                                     <button onclick="subtract_quantity('<?= $item->id ?>')" class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                                                 </div>
-                                                <input onchange="edit_quantity(this.value,'<?= $item->id ?>')" type="text" class="form-control text-center" value="<?= $item->cart_quantity; ?>" min="0" max="<?= $item->quantity; ?>" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                                <input id="quantity_product" onchange="edit_quantity(this.value,'<?= $item->id ?>')" type="text" class="form-control text-center" value="<?= $item->cart_quantity; ?>" min="1" max="<?= $item->quantity; ?>" aria-label="Example text with button addon" aria-describedby="button-addon1">
                                                 <div class="input-group-append">
                                                     <button onclick="add_quantity('<?= $item->id ?>')" class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
                                                 </div>
@@ -63,7 +63,7 @@
                             </tbody>
                         </table>
                     <?php } else { ?>
-                        <p class="text-danger" style="font-weight: bold;" id="font-unicode">Không có sản phẩm nào trong giỏ hàng.</p>
+                        <p class="text-danger" id="font-unicode">Không có sản phẩm nào trong giỏ hàng.</p>
                     <?php } ?>
                 </div>
             </form>
@@ -73,13 +73,10 @@
             <div class="col-md-6">
                 <div class="row mb-5">
                     <div class="col-md-6 mb-3 mb-md-0">
-                        <button class="btn btn-primary btn-md btn-block">Update Cart</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button onclick="location.href='<?= ROOT ?>shop ?>'" class="btn btn-outline-primary btn-md btn-block">Continue Shopping</button>
+                        <button onclick="location.href='<?= ROOT ?>shop ?>'" class="btn btn-primary btn-md btn-block">Continue Shopping</button>
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-12">
                         <label class="text-black h4" for="coupon">Coupon</label>
                         <p>Enter your coupon code if you have one.</p>
@@ -90,7 +87,7 @@
                     <div class="col-md-4">
                         <button class="btn btn-primary btn-md px-4">Apply Coupon</button>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-md-6 pl-5">
                 <div class="row justify-content-end">
@@ -141,7 +138,7 @@
                                 <?php } else { ?>
                                     <button class="btn btn-primary btn-lg btn-block" onclick="checkLogin() ">Proceed To Checkout</button>
                                 <?php } ?>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -184,15 +181,15 @@
     }
 </style>
 <script>
-
     function checkLogin() {
-        if (confirm('Login to continue purchasing?')) {
+        if (confirm('Đăng nhập để thanh toán!')) {
             // Save it!
             window.location.href = "login";
         } else {
             // Do nothing!
         }
     }
+
     function edit_quantity(quantity, id) {
         if (isNaN(quantity)) {
             return;
@@ -204,9 +201,13 @@
     }
 
     function remove(id) {
-        send_data({
-            id: id.trim()
-        }, "remove");
+        if (confirm('Bạn có chắc chắn xóa sản phẩm này không?')) {
+            send_data({
+                id: id.trim()
+            }, "remove");
+        } else {
+            // Do nothing!
+        }
     }
 
     function add_quantity(id) {
