@@ -90,7 +90,7 @@
                 </div>
               </div>
             </div>
-            <p class="font-weight-500">Tổng doanh thu của tháng: <?= $data['total_report'] ?></p>
+            <p class="font-weight-500">Tổng doanh thu của tháng: <?= number_format($data['total_report'] )?> vnđ</p>
             <div class="table-responsive">
               <table class="table table-striped">
                 <thead>

@@ -5,6 +5,7 @@ class CheckOut extends Controller
     {
         $db = new Database();
         $rows = false;
+        //get product id 
         $prod_ids = array();
         if(isset($_SESSION['cart'])){
             $prod_ids = array_column($_SESSION['cart'],'id');
@@ -19,7 +20,6 @@ class CheckOut extends Controller
                         $rows[$key]->cart_quantity =  $item['cart_quantity'];
                         break;
                     }
-
                 } 
             }
         }
@@ -32,7 +32,6 @@ class CheckOut extends Controller
         if($rows){
             foreach($rows as $key => $row){
                 $total = $row->price * $row->cart_quantity;
-
                 $data['sub_total'] += $total;
             }
 

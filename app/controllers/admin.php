@@ -377,28 +377,29 @@ class Admin extends Controller
       $data['total_page'] = ceil($total_records / $limit);
       $data['current_page'] = $page_number;
       $data['index'] = "order";
-
       $data['order'] = $order->get_Data($limit, $offset);
 
       //load view
-
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/order/list", $data);
       $this->view("admin/partials/_footer", $data);
     } elseif (isset($_GET['action']) && $_GET['action'] == "edit" && isset($_GET['id'])) {
       $data['row'] = $order->get_By_Id($_GET['id']);
       $data['detail'] = $order->getDetail_By_Id($_GET['id']);
+    
       if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        $result = $order->update($_POST);
+        $result = $order->update($_POST,$data['detail']);
         if ($result) {
           header("Location: " . ROOT . "admin/order");
         }
       }
+
       //load view
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/order/edit", $data);
       $this->view("admin/partials/_footer", $data);
-    } elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
+    } 
+    elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
       $id = $_GET['id'];
       $result = $order->delete($id);
       return header("Location: " . ROOT . "admin/order");
