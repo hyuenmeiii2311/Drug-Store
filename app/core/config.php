@@ -3,10 +3,9 @@
 /*set your website title*/
 define("WEBSITE_TITLE","Pharma");
 
-
 /*set database variables*/
 define('DB_TYPE','mysql');
-define('DB_NAME','test');
+define('DB_NAME','drugstore');
 define('DB_USER','root');
 define('DB_PASS','');
 define('DB_HOST','localhost');

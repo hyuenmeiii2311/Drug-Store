@@ -82,6 +82,15 @@ class Product
         $result = $db->read("SELECT * FROM product WHERE id = $id");
         return $result[0];
     }
+
+    function get_Related_Products($category_id, $id){
+        $db = new Database();
+        $query = "SELECT product.id, product.name, product.image"
+        ." FROM product INNER JOIN category on product.category_id = category.id "
+        ." where product.category_id = ".$category_id." and product.id != ".$id." LIMIT 5;";
+        return $db->read($query);
+    }
+
     function update($POST, $FILES)
     {
         $data = array();

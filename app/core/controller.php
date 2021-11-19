@@ -8,7 +8,6 @@ class Controller{
         else{
             include "./app/views/404.php";
         }
-        
     }
     public function load_model($model)
     {

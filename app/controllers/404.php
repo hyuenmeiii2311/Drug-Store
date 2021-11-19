@@ -9,6 +9,7 @@ class PageNotFound extends Controller
         $list= $this->load_model('ProductMix');
         $data['product_mix']= $list->get_All();
         
+        //load view
         $this->view("client/header",$data);
         $this->view("client/404",$data);
         $this->view("client/footer",$data);

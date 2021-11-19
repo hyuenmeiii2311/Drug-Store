@@ -201,8 +201,6 @@ class Cart extends Controller
         else{
             $this->redirect_to = ROOT . "cart";
         }
-        // show($_SERVER);
-
     }
     
 }

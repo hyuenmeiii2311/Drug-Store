@@ -3,14 +3,14 @@ class CheckOut extends Controller
 {
     function index()
     {
-        $db = new Database();
+        $product = $this->load_model('product');
         $rows = false;
         //get product id 
         $prod_ids = array();
         if(isset($_SESSION['cart'])){
             $prod_ids = array_column($_SESSION['cart'],'id');
             $ids_str = "'" .implode("','",$prod_ids) . "'";
-            $rows = $db->read("select * from product where id in ($ids_str)");
+            $rows = $product->get_Products_By_Id($ids_str);
         }
 
         if(is_array($rows)){

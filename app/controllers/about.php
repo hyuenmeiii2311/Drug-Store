@@ -9,9 +9,9 @@ class About extends Controller
         $list= $this->load_model('ProductMix');
         $data['product_mix']= $list->get_All();
         
+        //load view
         $this->view("client/header",$data);
         $this->view("client/about",$data);
-        // $this->view("client/test",$data);
         $this->view("client/footer",$data);
     }
     

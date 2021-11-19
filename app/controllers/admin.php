@@ -7,17 +7,17 @@ class Admin extends Controller
     $data['page_title'] = "Login";
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-      // show($_POST);
-
       $user = $this->load_model("user");
       $user->login_Admin($_POST);
     }
+
     $this->view("admin/pages/login", $data);
   }
 
   //home
   function home()
   {
+    //load model
     $product = $this->load_model('product');
     $data['total_products'] = $product->count_Records();
     $user = $this->load_model('user');
@@ -29,16 +29,12 @@ class Admin extends Controller
 
     $data['page_title'] = "Admin";
 
-
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-      // echo "<br><br><br>";
-      // show($_POST);
       $data['total_report'] = $order->calculate_report($_POST['date_report']);
       $data['detail_report'] = $order->detail_report($_POST['date_report']);
-      // echo "<br><br><br>";
-      // show($_POST['date_report']);
     }
 
+    //load view
     $this->view("admin/partials/_header", $data);
     $this->view("admin/index", $data);
     $this->view("admin/partials/_footer", $data);
@@ -59,12 +55,13 @@ class Admin extends Controller
       $data['current_page'] = $page_number;
       $data['index'] = "user";
       $data['user'] = $user->get_Data($limit, $offset);
-      //load view
 
+      //load view
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/user/list", $data);
       $this->view("admin/partials/_footer", $data);
-    } elseif (isset($_GET['action'])) {
+    } 
+    elseif (isset($_GET['action'])) {
       $data['row'] = $user->get_By_Id($_GET['id']);
       $data['index'] = $_GET['action'];
       if ($_GET['action'] == "edit" && isset($_GET['id'])) {
@@ -79,10 +76,10 @@ class Admin extends Controller
         $this->view("admin/partials/_header", $data);
         $this->view("admin/pages/user/edit", $data);
         $this->view("admin/partials/_footer", $data);
-      } elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
+      } 
+      elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
         $id = $_GET['id'];
         $result = $user->delete($id);
-
         return header("Location: " . ROOT . "admin/user");
       }
     }
@@ -383,7 +380,8 @@ class Admin extends Controller
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/order/list", $data);
       $this->view("admin/partials/_footer", $data);
-    } elseif (isset($_GET['action']) && $_GET['action'] == "edit" && isset($_GET['id'])) {
+    } 
+    elseif (isset($_GET['action']) && $_GET['action'] == "edit" && isset($_GET['id'])) {
       $data['row'] = $order->get_By_Id($_GET['id']);
       $data['detail'] = $order->getDetail_By_Id($_GET['id']);
     

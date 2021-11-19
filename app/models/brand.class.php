@@ -20,6 +20,12 @@ class Brand
         $result = $db->read("SELECT COUNT(*) AS total FROM brand;");
         return $result[0]->total;
     }
+    function getName_By_ProductId($id){
+        $id = (int)$id;
+        $db = new Database();
+        $result = $db->read("SELECT brand.name FROM product inner join brand on product.brand_id = brand.id WHERE product.id = brand.id and product.id = $id;");
+        return $result[0];
+    }
     function insert($POST)
     {
         // show($POST);
