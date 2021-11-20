@@ -120,7 +120,7 @@
                         <td><?= $item->created_date ?></td>
                         <td><?= $item->delivery_name ?></td>
                         <td><?= $item->delivery_address ?></td>
-                        <td><?= $item->total ?></td>
+                        <td><?= number_format($item->total) ?></td>
                       </tr>
                     <?php endforeach; ?>
                   <?php else : ?>

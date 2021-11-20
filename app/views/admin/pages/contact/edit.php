@@ -9,21 +9,20 @@
                             Thông tin liên lạc
                         </p>
                         <form class="forms-sample" method="POST" onsubmit="return validate()">
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label>Địa chỉ email</label>
-                                    <input type="email" value="<?= $data['row']->email ?>" disabled class="form-control" id="email" name="email">
-                                    <input type="hidden" name="contact_id" value="<?=  $data['row']->id?>">
-                                
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Trạng thái</label>
-                                    <select class="js-example-basic-single w-100" name="status">
-                                        <option <?php ($data['row']->status == 0) ? 'selected"' : ""?> value="0">Chưa trả lời</option>
-                                        <option <?php ($data['row']->status == 1) ? "selected" : ""?> value="1">Đã trả lời</option>
-                                    </select>
-                                </div>
+                            <div class="form-group ">
+                                <label>Trạng thái</label>
+                                <select class="js-example-basic-single w-100" name="status" <?= ($data['row']->status == 1) ? "disabled" : ""?> >
+                                    <option <?php ($data['row']->status == 0) ? 'selected"' : "" ?> value="0">Chưa trả lời</option>
+                                    <option <?php ($data['row']->status == 1) ? "selected" : "" ?> value="1">Đã trả lời</option>
+                                </select>
                             </div>
+
+                            <div class="form-group ">
+                                <label>Địa chỉ email</label>
+                                <input type="email" value="<?= $data['row']->email ?>" disabled class="form-control" id="email" name="email">
+                                <input type="hidden" name="contact_id" value="<?= $data['row']->id ?>">
+                            </div>
+
                             <div class="form-group">
                                 <label>Họ và tên</label>
                                 <input type="text" value="<?= $data['row']->name ?>" disabled class="form-control" id="name" name="name">

@@ -19,6 +19,7 @@
 
   <link rel="stylesheet" href="<?= ASSETS_ADMIN ?>vendors/select2/select2.min.css">
   <link rel="stylesheet" href="<?= ASSETS_ADMIN ?>vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  
 
   <!-- End plugin css for this page -->
   <!-- inject:css -->

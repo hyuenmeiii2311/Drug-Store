@@ -36,11 +36,9 @@ class ProductMix
         $db = new Database();
         $query = "INSERT INTO `product_mix`(`name`) VALUES ('" . $data['product_mix'] . "')";
         $result = $db->write($query);
+        return $result;
 
-        if ($result) {
-            header("Location:" . ROOT . "admin/mix");
-            die;
-        }
+        
     }
     function update($POST){
         $data = array();

@@ -7,15 +7,13 @@
                     <div class="card-body">
                         <h4 class="card-title"><?= ucwords($data['page_title']) ?></h4>
                         <p class="card-description">
-                            <a>
-                                <i class="mdi mdi-plus-circle-outline">Thêm mới</i>
-                            </a>
+                            Thông tin đơn hàng
                         </p>
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Mã khách hàng</th>
+                                        <th>Mã đơn hàng</th>
                                         <th>Ngày đặt</th>
                                         <th>Tên người nhận</th>
                                         <th>Địa chỉ giao</th>
@@ -29,7 +27,7 @@
                                     <?php if (isset($data['order']) && is_array($data['order'])) : ?>
                                         <?php foreach ($data['order'] as $item) : ?>
                                             <tr>
-                                                <td><?= $item->customer_id ?></td>
+                                                <td><?= $item->id ?></td>
                                                 <td><?= $item->created_date ?></td>
                                                 <td><?= $item->delivery_name ?></td>
                                                 <td><?= $item->delivery_address ?></td>

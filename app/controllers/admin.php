@@ -60,15 +60,17 @@ class Admin extends Controller
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/user/list", $data);
       $this->view("admin/partials/_footer", $data);
-    } 
-    elseif (isset($_GET['action'])) {
+    } elseif (isset($_GET['action'])) {
       $data['row'] = $user->get_By_Id($_GET['id']);
       $data['index'] = $_GET['action'];
+      //edit
       if ($_GET['action'] == "edit" && isset($_GET['id'])) {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
           $result = $user->update($_POST);
           if ($result) {
+            $_SESSION['success'] = "edit";
             header("Location: " . ROOT . "admin/user");
+            die;
           }
         }
 
@@ -76,11 +78,16 @@ class Admin extends Controller
         $this->view("admin/partials/_header", $data);
         $this->view("admin/pages/user/edit", $data);
         $this->view("admin/partials/_footer", $data);
-      } 
+      }
+      //delete
       elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
         $id = $_GET['id'];
         $result = $user->delete($id);
-        return header("Location: " . ROOT . "admin/user");
+        if ($result) {
+          $_SESSION['success'] = "delete";
+          header("Location: " . ROOT . "admin/user");
+          die;
+        }
       }
     }
   }
@@ -114,7 +121,12 @@ class Admin extends Controller
       //add
       if ($_GET['action'] == "add") {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-          $category->insert($_POST);
+          $result =$category->insert($_POST);
+          if ($result) {
+            $_SESSION['success'] = "add";
+            header("Location:" . ROOT . "admin/category");
+            die;
+        }
         }
       }
       //edit
@@ -122,15 +134,27 @@ class Admin extends Controller
         $data['row'] = $category->get_By_Id($_GET['id']);
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-          $category->update($_POST);
-          header("Location: " . ROOT . "admin/category");
+          $result = $category->update($_POST);
+          if($result){
+            $_SESSION['success'] = "edit";
+            header("Location: " . ROOT . "admin/category");
+            die;
+          }
+          
         }
       }
       //delete
       elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
         $id = $_GET['id'];
-        $category->delete($id);
-        return header("Location: " . ROOT . "admin/category");
+        $result = $category->delete($id);
+        if($result){
+          $_SESSION['success'] = "delete";
+         header("Location: " . ROOT . "admin/category");
+         die;
+
+        }
+
+        
       }
 
       //load view
@@ -161,13 +185,17 @@ class Admin extends Controller
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/contact/list", $data);
       $this->view("admin/partials/_footer", $data);
-    } elseif (isset($_GET['action']) && $_GET['action'] == "edit" && isset($_GET['id'])) {
+    } 
+    //edit
+    elseif (isset($_GET['action']) && $_GET['action'] == "edit" && isset($_GET['id'])) {
       $data['row'] = $contact->get_By_Id($_GET['id']);
 
       if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $result = $contact->update($_POST);
         if ($result) {
+          $_SESSION['success'] = "edit";
           header("Location: " . ROOT . "admin/contact");
+          die;
         }
       }
 
@@ -175,10 +203,18 @@ class Admin extends Controller
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/contact/edit", $data);
       $this->view("admin/partials/_footer", $data);
-    } elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
+    } 
+    //delete
+    elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
       $id = $_GET['id'];
       $result = $contact->delete($id);
-      return header("Location: " . ROOT . "admin/contact");
+      if($result){
+        $_SESSION['success'] = "delete";
+      header("Location: " . ROOT . "admin/contact");
+      die;
+
+      }
+      
     }
   }
   function product()
@@ -226,7 +262,12 @@ class Admin extends Controller
       //add
       if ($_GET['action'] == "add") {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-          $product->insert($_POST, $_FILES);
+          $result = $product->insert($_POST, $_FILES);
+          if ($result) {
+            $_SESSION['success'] = "add";
+            header("Location:" . ROOT . "admin/product");
+            die;
+          }
         }
       }
       //edit
@@ -234,15 +275,19 @@ class Admin extends Controller
         $data['row'] = $product->get_By_Id($_GET['id']);
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
-          $product->update($_POST, $_FILES);
-          header("Location: " . ROOT . "admin/product");
+          $result = $product->update($_POST, $_FILES);
+          if ($result) {
+            $_SESSION['success'] = "edit";
+            header("Location:" . ROOT . "admin/product");
+            die;
+          }
         }
       }
       //delete
       elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
         $id = $_GET['id'];
         $product->delete($id);
+        $_SESSION['success'] = "delete";
         return header("Location: " . ROOT . "admin/product");
       }
 
@@ -280,7 +325,12 @@ class Admin extends Controller
       //add
       if ($_GET['action'] == "add") {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-          $product_mix->insert($_POST);
+          $result =$product_mix->insert($_POST);
+          if ($result) {
+            $_SESSION['success'] = "add";
+            header("Location:" . ROOT . "admin/mix");
+            die;
+        }
         }
       }
       //edit
@@ -288,14 +338,19 @@ class Admin extends Controller
         $data['row'] = $product_mix->get_By_Id($_GET['id']);
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-          $product_mix->update($_POST);
-          header("Location: " . ROOT . "admin/mix");
+          $result = $product_mix->update($_POST);
+          if($result){
+            $_SESSION['success'] = "edit";
+            header("Location: " . ROOT . "admin/mix");
+            die;
+          }
         }
       }
       //delete
       elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
         $id = $_GET['id'];
         $product_mix->delete($id);
+        $_SESSION['success'] = "delete";
         return header("Location: " . ROOT . "admin/mix");
       }
 
@@ -305,7 +360,6 @@ class Admin extends Controller
       $this->view("admin/partials/_footer", $data);
     }
   }
-
   function brand()
   {
     $data['page_title'] = "quản lý thương hiệu";
@@ -333,7 +387,12 @@ class Admin extends Controller
       //add
       if ($_GET['action'] == "add") {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-          $brand->insert($_POST);
+          $result = $brand->insert($_POST);
+          if ($result) {
+            header("Location:" . ROOT . "admin/brand");
+            $_SESSION['success'] = "add";
+            die;
+          }
         }
       }
       //edit
@@ -341,15 +400,22 @@ class Admin extends Controller
         $data['row'] = $brand->get_By_Id($_GET['id']);
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-          $brand->update($_POST);
-          header("Location: " . ROOT . "admin/brand");
+          $result = $brand->update($_POST);
+          if ($result) {
+            $_SESSION['success'] = "edit";
+            header("Location: " . ROOT . "admin/brand");
+            die;
+          }
         }
       }
       //delete
       elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
         $id = $_GET['id'];
-        $brand->delete($id);
-        return header("Location: " . ROOT . "admin/brand");
+        $result = $brand->delete($id);
+        if ($result) {
+          $_SESSION['success'] = "delete";
+          return header("Location: " . ROOT . "admin/brand");
+        }
       }
 
       //load view
@@ -380,15 +446,16 @@ class Admin extends Controller
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/order/list", $data);
       $this->view("admin/partials/_footer", $data);
-    } 
-    elseif (isset($_GET['action']) && $_GET['action'] == "edit" && isset($_GET['id'])) {
+    } elseif (isset($_GET['action']) && $_GET['action'] == "edit" && isset($_GET['id'])) {
       $data['row'] = $order->get_By_Id($_GET['id']);
       $data['detail'] = $order->getDetail_By_Id($_GET['id']);
-    
+
       if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        $result = $order->update($_POST,$data['detail']);
+        $result = $order->update($_POST, $data['detail']);
         if ($result) {
+          $_SESSION['success'] = "edit";
           header("Location: " . ROOT . "admin/order");
+          die;
         }
       }
 
@@ -396,10 +463,10 @@ class Admin extends Controller
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/order/edit", $data);
       $this->view("admin/partials/_footer", $data);
-    } 
-    elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
+    } elseif ($_GET['action'] == "delete" && isset($_GET['id'])) {
       $id = $_GET['id'];
       $result = $order->delete($id);
+      $_SESSION['success'] = "delete";
       return header("Location: " . ROOT . "admin/order");
     }
   }

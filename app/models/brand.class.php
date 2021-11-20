@@ -37,10 +37,7 @@ class Brand
         $query = "INSERT INTO `brand`(`name`) VALUES ('" . $data['name'] . "')";
         $result = $db->write($query);
 
-        if ($result) {
-            header("Location:" . ROOT . "admin/brand");
-            die;
-        }
+        return $result;
     }
     function get_By_Id($id){
         $id = (int)$id;

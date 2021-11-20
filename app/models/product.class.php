@@ -68,12 +68,7 @@ class Product
         $db = new Database();
         $query = "INSERT INTO `product`( `name`, `weight`, `unit`, `image`, `price`, `quantity`, `description`, `category_id`, `brand_id`)
          VALUES ('" . $data['name'] . "','" . $data['weight'] . "','" . $data['unit'] . "','" . $data['image'] . "','" . $data['price'] . "','" . $data['quantity'] . "','" . $data['description'] . "','" . $data['category_id'] . "','" . $data['brand_id'] . "')";
-        $result = $db->write($query);
-
-        if ($result) {
-            header("Location:" . ROOT . "admin/product");
-            die;
-        }
+        return $db->write($query);
     }
     function get_By_Id($id)
     {

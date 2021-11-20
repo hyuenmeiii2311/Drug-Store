@@ -39,10 +39,7 @@ class Category
         $query = "INSERT INTO `category`( `name`, `product_mix_id`) VALUES ('" . $data['name'] . "','" . $data['mix_id'] . "')";
         $result = $db->write($query);
 
-        if ($result) {
-            header("Location:" . ROOT . "admin/category");
-            die;
-        }
+        return $result;
     }
     function get_By_Id($id){
         $id = (int)$id;

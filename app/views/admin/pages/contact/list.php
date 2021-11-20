@@ -7,9 +7,7 @@
                     <div class="card-body">
                         <h4 class="card-title"><?= ucwords($data['page_title']) ?></h4>
                         <p class="card-description">
-                            <a>
-                                <i class="mdi mdi-plus-circle-outline">Thêm mới</i>
-                            </a>
+                            Thông tin liên hệ
                         </p>
                         <div class="table-responsive">
                             <table class="table table-hover">
