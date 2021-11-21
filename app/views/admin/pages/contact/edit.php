@@ -1,61 +1,44 @@
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="row">
-            <div class="col-12 grid-margin stretch-card">
+            <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title"><?= ucwords($data['page_title']) ?></h4>
-                        <p class="card-description">
-                            Thông tin liên lạc
-                        </p>
-                        <form class="forms-sample" method="POST" onsubmit="return validate()">
-                            <div class="form-group ">
-                                <label>Trạng thái</label>
-                                <select class="js-example-basic-single w-100" name="status" <?= ($data['row']->status == 1) ? "disabled" : ""?> >
-                                    <option <?php ($data['row']->status == 0) ? 'selected"' : "" ?> value="0">Chưa trả lời</option>
-                                    <option <?php ($data['row']->status == 1) ? "selected" : "" ?> value="1">Đã trả lời</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group ">
-                                <label>Địa chỉ email</label>
-                                <input type="email" value="<?= $data['row']->email ?>" disabled class="form-control" id="email" name="email">
-                                <input type="hidden" name="contact_id" value="<?= $data['row']->id ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Họ và tên</label>
-                                <input type="text" value="<?= $data['row']->name ?>" disabled class="form-control" id="name" name="name">
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label>Tiêu đề</label>
-                                    <input type="text" value="<?= $data['row']->subject ?>" disabled class="form-control" id="subject" name="subject">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-body">
+                                <h4 class="card-title"><?= ucwords($data['page_title']) ?></h4>
+                                <p class="card-description">
+                                Thông tin liên lạc
+                                </p>
+                                <div class="template-demo">
+                                    <p><b>Địa chỉ email:</b> <?= $data['row']->email ?></p>
+                                    <p><b>Họ và tên:</b> <?= $data['row']->name ?></p>
+                                    <p><b>Tiêu đề: </b><?= $data['row']->subject ?></p>
+                                    <p><b>Ngày gửi:</b> <?= $data['row']->created_date ?></p>
+                                    <p><b>Nội dung:</b> </p>
+                                    <p><?= $data['row']->message ?></p>
+                                    <form method="POST">
+                                        <div class="form-group">
+                                            <?php if ($data['row']->status != 1) : ?>
+                                                <label>Trạng thái :</label>
+                                                <select class="js-example-basic-single w-100" name="status">
+                                                    <option value="0" <?= ($data['row']->status == "0") ? 'selected' : '' ?>>Chưa trả lời</option>
+                                                    <option value="1" <?= ($data['row']->status == "1") ? 'selected' : '' ?>>Đã trả lời</option>
+                                                </select>
+                                                <input type="hidden" name="contact_id" value="<?= $data['row']->id ?>">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                    <?php else : ?>
+                                        <label class="badge badge-success">Đã giao hàng</label>
                                 </div>
-                                <div class="col-md-6">
-                                    <label>Ngày gửi</label>
-                                    <input type="datetime" value="<?= $data['row']->created_date ?>" disabled class="form-control" id="created_date" name="created_date">
-                                </div>
+                            <?php endif; ?>
+                            </form>
                             </div>
-                            <div class="form-group">
-                                <label>Nội dung</label>
-                                <textarea disabled class="form-control" id="message" name="message" rows="5"><?= $data['row']->message ?></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Javascript -->
-    <script>
-        function validate() {
-            var status = document.getElementById("status").value;
-            if (status == "") {
-                alert("Hãy điền trạng thái !");
-                return false;
-            }
-        }
-    </script>
-    <!-- //Javascript -->
+</div>
+</div>
