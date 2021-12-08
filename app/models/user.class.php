@@ -147,7 +147,6 @@ class User
 
         //save database
         if ($this->error == "") {
-            // show($POST);
 
             $query = "select * from user where phone = :phone and password = :password AND role = 'admin' limit 1";
             $result = $db->read($query, $data);

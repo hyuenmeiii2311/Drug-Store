@@ -23,6 +23,7 @@ class Order
         //save order
         $data['customer_id'] = trim($user_id);
         $data['created_date'] = date("Y-m-d h:i:s");
+        
         if (is_array($rows)) {
             $data['delivery_name'] = trim($POST['c_name']);
             $data['delivery_address'] = trim($POST['c_address_detail']) . " " . trim($POST['c_address']);

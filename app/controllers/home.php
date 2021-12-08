@@ -5,8 +5,8 @@ class Home extends Controller
     {
 
         //get new products
-        $db = new Database();
-        $new_products = $db->read("SELECT id, name ,image, price FROM product ORDER BY id DESC LIMIT 6;");
+        $productModel = $this->load_model("product");
+        $new_products = $productModel->get_New_Products();
         $data['new_products'] = $new_products;
 
         //get all Product Mix 

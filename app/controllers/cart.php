@@ -23,6 +23,7 @@ class Cart extends Controller
                 } 
             }
         }
+        // show($_SESSION['cart']);
         //sort($rows);//sắp xếp các mảng theo thứ tự tăng dần
         $data['cart'] = $rows;
 
@@ -57,9 +58,9 @@ class Cart extends Controller
         // $this->set_redirect();
         $id = (int)$id;
 
-        $db = new Database();
-        $rows = $db->read("select * from product where id = :id limit 1", ['id' => $id]);
-
+        $product = $this->load_model('product');
+        $rows = $product->get_Product($id);
+        
         //check if product exists
         if ($rows) {
 
@@ -74,7 +75,6 @@ class Cart extends Controller
                 if (in_array($row->id, $ids)) {
                     $key = array_search($row->id, $ids);
                     $_SESSION['cart'][$key]['cart_quantity'] += $quantity;
-                    //unset($_SESSION['cart']);
                 } 
                 else //else : add product
                 {
@@ -83,7 +83,6 @@ class Cart extends Controller
                     $arr['cart_quantity'] = $quantity;
 
                     $_SESSION['cart'][] = $arr;
-                    //unset($_SESSION['cart']);
                 }
             } 
             else // else : add new product

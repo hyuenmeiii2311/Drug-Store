@@ -247,7 +247,8 @@ class Admin extends Controller
       if ($search) {
         $data['keyword'] = $keyword;
         $data['product'] = $product->search($data['keyword'], $limit, $offset);
-      } else {
+      } 
+      else {
         $data['product'] = $product->get_All($limit, $offset);
       }
 
@@ -255,6 +256,7 @@ class Admin extends Controller
       $this->view("admin/partials/_header", $data);
       $this->view("admin/pages/product/list", $data);
       $this->view("admin/partials/_footer", $data);
+
     } elseif (isset($_GET['action'])) {
       $data['index'] = $_GET['action'];
       $data['category'] = $category->get_All();
@@ -273,7 +275,6 @@ class Admin extends Controller
       //edit
       elseif ($_GET['action'] == "edit" && isset($_GET['id'])) {
         $data['row'] = $product->get_By_Id($_GET['id']);
-
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
           $result = $product->update($_POST, $_FILES);
           if ($result) {

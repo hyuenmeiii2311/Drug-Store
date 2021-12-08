@@ -48,9 +48,13 @@ class Product
         $result = $db->read("SELECT COUNT(*) AS total FROM product;");
         return $result[0]->total;
     }
+    function get_Product($id){
+        $id = (int)$id;
+        $db = new Database();
+        return $db->read("select * from product where id = $id limit 1;");
+    }
     function insert($POST, $FILES)
     {
-        // show($POST);
         $db = new Database();
         $data = array();
 
@@ -117,5 +121,9 @@ class Product
         $id = (int) $id;
         $db = new Database();
         return  $db->write("DELETE FROM `product` WHERE `id`='$id'");
+    }
+    function get_New_Products(){
+        $db = new Database();
+        return $db->read("SELECT id, name ,image, price FROM product ORDER BY id DESC LIMIT 6;");
     }
 }

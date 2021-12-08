@@ -8,7 +8,6 @@ class Detail extends Controller
         $brandModel = $this->load_model('brand');
         
         //get product
-        $db = new Database();
         $product = $productModel->get_By_Id($id);
         $data['product'] =  $product;
         $data['page_title'] = ($product != null) ? $product->name : "Not Found";
@@ -55,7 +54,6 @@ class Detail extends Controller
                 if (in_array($row->id, $ids)) {
                     $key = array_search($row->id, $ids);
                     $_SESSION['cart'][$key]['cart_quantity'] += $quantity;
-                    //unset($_SESSION['cart']);
                 } 
                 else //else : add product
                 {
@@ -75,7 +73,8 @@ class Detail extends Controller
                 $_SESSION['cart'][0] = $arr;
             }
         }
-        header("Location:".ROOT."cart" );
+
+        header("Location:".ROOT."cart"); 
     }
  
 }
