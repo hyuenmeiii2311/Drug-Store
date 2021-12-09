@@ -23,7 +23,7 @@
 
                             <div class="col-md-6">
                                 <label for="c_fname" class="text-black">First Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="c_fname" name="c_fname" pattern="/^[A-z ]$/" value="<?php echo isset($_POST['c_fname']) ? $_POST['c_fname'] : ''  ?>">
+                                <input type="text" class="form-control" id="c_fname" name="c_fname"  value="<?php echo isset($_POST['c_fname']) ? $_POST['c_fname'] : ''  ?>">
                             </div>
                             <div class="col-md-6">
                                 <label for="c_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
@@ -102,52 +102,56 @@
         var first_name = document.forms["Contact"]["c_fname"].value;
         var last_name = document.forms["Contact"]["c_lname"].value;
 
-        // if (first_name == "") {
-        //     alert("Enter your first name!");
-        //     return false;
-        // }
-        // if (!validateName(first_name)) {
-        //     alert("Please enter a valid first name.");
-        //     return false;
-        // }
+        if (first_name == "") {
+            alert("Enter your first name!");
+            return false;
+        }
+        if (validateName(first_name)) {
+            alert("Please enter a valid first name.");
+            return false;
+        }
 
-        // if (last_name == "") {
-        //     alert("Enter your last name!");
-        //     return false;
-        // }
-        // if (!validateName(last_name)) {
-        //     alert("Please enter a valid last name. ");
-        //     return false;
-        // }
+        if (last_name == "") {
+            alert("Enter your last name!");
+            return false;
+        }
+        if (validateName(last_name)) {
+            alert("Please enter a valid last name. ");
+            return false;
+        }
 
-        // //check email
-        // var email = document.getElementById("c_email").value;
-        // if (email == "") {
-        //     alert("Enter your email!");
-        //     return false;
-        // }
-        // if (!validateEmail(email)) {
-        //     alert("Your email is invalid!");
-        //     return false;
-        // }
+        //check email
+        var email = document.getElementById("c_email").value;
+        if (email == "") {
+            alert("Enter your email!");
+            return false;
+        }
+        if (!validateEmail(email)) {
+            alert("Your email is invalid!");
+            return false;
+        }
 
-        // //check subject
-        // var subject = document.forms["Contact"]["c_subject"].value;
-        // if (subject == "") {
-        //     alert("Enter subject!");
-        //     return false;
-        // }
+        //check subject
+        var subject = document.forms["Contact"]["c_subject"].value;
+        if (subject == "") {
+            alert("Enter subject!");
+            return false;
+        }
 
-        // //check subject
-        // var msg = document.forms["Contact"]["c_message"].value;
-        // if (msg == "") {
-        //     alert("Enter message!");
-        //     return false;
-        // }
+        //check subject
+        var msg = document.forms["Contact"]["c_message"].value;
+        if (msg == "") {
+            alert("Enter message!");
+            return false;
+        }
     }
 
+    // function validateName(input_str) {
+    //     return /^[A-Za-z\s]+$/.test(input_str);
+    // }
     function validateName(input_str) {
-        return /^[A-Za-z\s]+$/.test(input_str);
+        var re = /^\d+/g;
+        return re.test(input_str);
     }
 
     function validateEmail(input_str) {

@@ -2,7 +2,6 @@
 
 Class Database
 {
-	
 	public function db_connect()
 	{
 		try{

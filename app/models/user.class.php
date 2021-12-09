@@ -225,4 +225,35 @@ class User
 
         return  $db->write("DELETE FROM `user` WHERE `id`= $id;");
     }
+    public function add_Contact($POST)
+    {
+        // show($POST);
+        $data = array();
+
+        $data['name'] = trim($POST['c_fname']) . " " . trim($POST['c_lname']);
+        $data['email'] = trim($POST['c_email']);
+        $data['created_date'] = date("Y-m-d h:i:s");
+        $data['subject'] = trim($POST['c_subject']);
+        $data['message'] = trim($POST['c_message']);
+        $data['status'] = 0;
+        // show($data);
+
+        $db = new Database();
+
+        if (isset($_SESSION['user'])) {
+            $data['user_id'] = $_SESSION['user']->id ;
+            $query = "INSERT INTO `contact`(`user_id`, `name`, `email`, `created_date`, `subject`, `message`, `status`) 
+            VALUES ('" . $data['user_id'] . "','" . $data['name'] . "','" . $data['email'] . "','" . $data['created_date'] . "','" . $data['subject'] . "','" . $data['message'] . "','" . $data['status'] . "')";
+        }
+        else{
+            $query = "INSERT INTO `contact`( `name`, `email`, `created_date`, `subject`, `message`, `status`) 
+            VALUES ('". $data['name'] . "','" . $data['email'] . "','" . $data['created_date'] . "','" . $data['subject'] . "','" . $data['message'] . "','" . $data['status'] . "')";
+        }
+
+        $result = $db->write($query);
+        if ($result) {
+            header("Location:" . ROOT . "contact?success=true");
+            die;
+        }
+    }
 }

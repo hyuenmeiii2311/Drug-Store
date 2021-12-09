@@ -145,7 +145,7 @@ class Cart extends Controller
 
         // $this->redirect();
         $obj->data_type = "subtract_quantity";
-        echo json_encode($obj);
+        // echo json_encode($obj);
         
     }
 
@@ -184,7 +184,7 @@ class Cart extends Controller
         }
 
         $obj->data_type = "edit_quantity";
-        echo json_encode($obj);
+        // echo json_encode($obj);
     }
 
     private function redirect(){

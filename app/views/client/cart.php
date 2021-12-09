@@ -237,7 +237,7 @@
     function handle_result(result) {
         console.log(result);
         if (result != "") {
-            var obj = JSON.parse(result); //nhận vào một chuỗi JSON và chuyển đổi (transform) nó thành một đối tượng JavaScript.
+            var obj = JSON.parse(result);
             if (typeof obj.data_type != 'undefined') {
                 if (obj.data_type == "remove") {
                     window.location.href = window.location.href;
@@ -248,7 +248,6 @@
                 if (obj.data_type == "add_quantity") {
                     window.location.href = window.location.href;
                 }
-
                 if (obj.data_type == "subtract_quantity") {
                     window.location.href = window.location.href;
                 }

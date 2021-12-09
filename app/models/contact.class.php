@@ -38,4 +38,5 @@ class Contact
         $db = new Database();
         return  $db->write("DELETE FROM `contact` WHERE `id`='$id'");
     }
+   
 }
